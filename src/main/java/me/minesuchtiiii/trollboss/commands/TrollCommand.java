@@ -16,6 +16,8 @@ public class TrollCommand implements CommandExecutor {
     private static final String PERMISSION_STATISTICS = "troll.statistics";
     private static final String PERMISSION_GUI = "troll.gui";
 
+    private final static String PLUGIN_VERSION = TrollBoss.getInstance().getPluginMeta().getVersion();
+
     private final TrollBoss plugin;
 
     public TrollCommand(TrollBoss plugin) {
@@ -83,7 +85,7 @@ public class TrollCommand implements CommandExecutor {
             return;
         }
 
-        plugin.sendHelp(player, page);
+        sendHelp(player, page);
     }
 
     private void openStatistics(Player player) {
@@ -111,5 +113,128 @@ public class TrollCommand implements CommandExecutor {
         } else {
             player.sendMessage(StringManager.BYPASS);
         }
+    }
+
+    public void sendHelp(Player p, int i) {
+
+        if ((i > 0) && (i < TrollBoss.HELP_PAGES + 1)) {
+            if (i == 1) {
+
+                p.sendMessage("§7§l|§e§l==============§7§l| §r§cHelp page §4" + i +
+                        "§c/§4" + TrollBoss.HELP_PAGES + "§7§l |§e§l==============§7§l|");
+                p.sendMessage("§a * §7[§cTrollBoss§7] §7§l§oHere's a list of all available commands:");
+                p.sendMessage("§a * §7[§cTrollBoss§7] §e/troll");
+                p.sendMessage("§a * §7[§cTrollBoss§7] §e/troll help §c[page]");
+                p.sendMessage("§a * §7[§cTrollBoss§7] §e/troll §7[player]");
+                p.sendMessage("§a * §7[§cTrollBoss§7] §e/troll statistics");
+                p.sendMessage("§a * §7[§cTrollBoss§7] §e/trollop §7[true / false / status]");
+                p.sendMessage("§a * §7[§cTrollBoss§7] §e/trolltutorial <confirm / reject / stop>");
+                p.sendMessage("§a * §7[§cTrollBoss§7] §e/burn §7[player / all]");
+                p.sendMessage("§a * §7[§cTrollBoss§7] §e/freeze §7[player]");
+                p.sendMessage("§a * §7[§cTrollBoss§7] §e/bolt §7[player / all]");
+                p.sendMessage("§a * §7[§cTrollBoss§7] §e/special §c[number] §7[player]");
+                p.sendMessage("§a * §cType §4/troll help " + (i + 1) + " §cfor the next page");
+                p.sendMessage("§7§l|§e§l===============§7§l| §r§cVersion §4" +
+                        PLUGIN_VERSION + "§7§l |§e§l==============§7§l|");
+
+            } else if (i == 2) {
+
+                p.sendMessage("§7§l|§e§l==============§7§l| §r§cHelp page §4" + i +
+                        "§c/§4" + TrollBoss.HELP_PAGES + "§7§l |§e§l==============§7§l|");
+                p.sendMessage("§a * §7[§cTrollBoss§7] §7§l§oHere's a list of all available commands:");
+                p.sendMessage("§a * §7[§cTrollBoss§7] §e/launch §7[player / all]");
+                p.sendMessage("§a * §7[§cTrollBoss§7] §e/fakeop §7[player]");
+                p.sendMessage("§a * §7[§cTrollBoss§7] §e/fakedeop §7[player]");
+                p.sendMessage("§a * §7[§cTrollBoss§7] §e/spam §7[player] §c[amount]");
+                p.sendMessage("§a * §7[§cTrollBoss§7] §e/trollkick §7[player]");
+                p.sendMessage("§a * §7[§cTrollBoss§7] §e/badapple §7[player]");
+                p.sendMessage("§a * §7[§cTrollBoss§7] §e/boom §7[player]");
+                p.sendMessage("§a * §7[§cTrollBoss§7] §e/push §7[player]");
+                p.sendMessage("§a * §7[§cTrollBoss§7] §e/gokill §7[player] §c[delay]");
+                p.sendMessage("§a * §7[§cTrollBoss§7] §e/switch §7[player] [player]");
+                p.sendMessage("§a * §cType §4/troll help " + (i + 1) + " §cfor the next page");
+                p.sendMessage("§7§l|§e§l===============§7§l| §r§cVersion §4" +
+                        PLUGIN_VERSION + "§7§l |§e§l==============§7§l|");
+            } else if (i == 3) {
+
+                p.sendMessage("§7§l|§e§l==============§7§l| §r§cHelp page §4" + i +
+                        "§c/§4" + TrollBoss.HELP_PAGES + "§7§l |§e§l==============§7§l|");
+                p.sendMessage("§a * §7[§cTrollBoss§7] §7§l§oHere's a list of all available commands:");
+                p.sendMessage("§a * §7[§cTrollBoss§7] §e/denymove §7[player / all] §c[delay]");
+                p.sendMessage("§a * §7[§cTrollBoss§7] §e/potatotroll §7[player]");
+                p.sendMessage("§a * §7[§cTrollBoss§7] §e/trap §7[player] §c[delay]");
+                p.sendMessage("§a * §7[§cTrollBoss§7] §e/tptroll §7[player]");
+                p.sendMessage("§a * §7[§cTrollBoss§7] §e/infect §7[player] §c[time]");
+                p.sendMessage("§a * §7[§cTrollBoss§7] §e/herobrine §7[player]");
+                p.sendMessage("§a * §7[§cTrollBoss§7] §e/fakerestart §c[time]");
+                p.sendMessage("§a * §7[§cTrollBoss§7] §e/turn §7[player]");
+                p.sendMessage("§a * §7[§cTrollBoss§7] §e/starve §7[player] §c[count]");
+                p.sendMessage("§a * §7[§cTrollBoss§7] §e/hurt §7[player] §c[count]");
+                p.sendMessage("§a * §cType §4/troll help " + (i + 1) + " §cfor the next page");
+                p.sendMessage("§7§l|§e§l===============§7§l| §r§cVersion §4" +
+                        PLUGIN_VERSION + "§7§l |§e§l==============§7§l|");
+
+            } else if (i == 4) {
+
+                p.sendMessage("§7§l|§e§l==============§7§l| §r§cHelp page §4" + i +
+                        "§c/§4" + TrollBoss.HELP_PAGES + "§7§l |§e§l==============§7§l|");
+                p.sendMessage("§a * §7[§cTrollBoss§7] §7§l§oHere's a list of all available commands:");
+                p.sendMessage("§a * §7[§cTrollBoss§7] §e/void §7[player]");
+                p.sendMessage("§a * §7[§cTrollBoss§7] §e/pumpkinhead §7[player]");
+                p.sendMessage("§a * §7[§cTrollBoss§7] §e/bury §7[player] §c[time]");
+                p.sendMessage("§a * §7[§cTrollBoss§7] §e/nomine §7[player] §c[time]");
+                p.sendMessage("§a * §7[§cTrollBoss§7] §e/randomtp §7[player] §c[count]");
+                p.sendMessage("§a * §7[§cTrollBoss§7] §e/crash §7[player]");
+                p.sendMessage("§a * §7[§cTrollBoss§7] §e/freefall §7[player] §c[high]");
+                p.sendMessage("§a * §7[§cTrollBoss§7] §e/webtrap §7[player] §c[time]");
+                p.sendMessage("§a * §7[§cTrollBoss§7] §e/spank §7[player / all]");
+                p.sendMessage("§a * §7[§cTrollBoss§7] §e/trample §7[player] §c[amount]");
+                p.sendMessage("§a * §cType §4/troll help " + (i + 1) + " §cfor the next page");
+                p.sendMessage("§7§l|§e§l===============§7§l| §r§cVersion §4" +
+                        PLUGIN_VERSION + "§7§l |§e§l==============§7§l|");
+
+            } else if (i == 5) {
+
+                p.sendMessage("§7§l|§e§l==============§7§l| §r§cHelp page §4" + i +
+                        "§c/§4" + TrollBoss.HELP_PAGES + "§7§l |§e§l==============§7§l|");
+                p.sendMessage("§a * §7[§cTrollBoss§7] §7§l§oHere's a list of all available commands:");
+                p.sendMessage("§a * §7[§cTrollBoss§7] §e/stfu §7[player]");
+                p.sendMessage("§a * §7[§cTrollBoss§7] §e/popup §7[player]");
+                p.sendMessage("§a * §7[§cTrollBoss§7] §e/sky §7[player] §c[time]");
+                p.sendMessage("§a * §7[§cTrollBoss§7] §e/abduct §7[player]");
+                p.sendMessage("§a * §7[§cTrollBoss§7] §e/popular §7[player]");
+                p.sendMessage("§a * §7[§cTrollBoss§7] §e/creeper §7[player]");
+                p.sendMessage("§a * §7[§cTrollBoss§7] §e/sparta §7[player]");
+                p.sendMessage("§a * §7[§cTrollBoss§7] §e/trollbows");
+                p.sendMessage("§a * §7[§cTrollBoss§7] §e/drug §7[player]");
+                p.sendMessage("§a * §7[§cTrollBoss§7] §e/squidrain §7[player] §c[number]");
+                p.sendMessage("§a * §cType §4/troll help " + (i + 1) + " §cfor the next page");
+                p.sendMessage("§7§l|§e§l===============§7§l| §r§cVersion §4" +
+                        PLUGIN_VERSION + "§7§l |§e§l==============§7§l|");
+
+            } else {
+
+                p.sendMessage("§7§l|§e§l==============§7§l| §r§cHelp page §4" + i +
+                        "§c/§4" + TrollBoss.HELP_PAGES + "§7§l |§e§l==============§7§l|");
+                p.sendMessage("§a * §7[§cTrollBoss§7] §7§l§oHere's a list of all available commands:");
+                p.sendMessage("§a * §7[§cTrollBoss§7] §e/dropinv §7[player]");
+                p.sendMessage("§a * §7[§cTrollBoss§7] §e/garbage §7[player] §c[on | off]");
+                p.sendMessage("§a * §7[§cTrollBoss§7] §e/anvil §7[player]");
+                p.sendMessage("§a * §7[§cTrollBoss§7] §e/invtext §7[player]");
+                p.sendMessage("§a * §7[§cTrollBoss§7] §e/runforrest §7[player] [time]");
+                p.sendMessage("§a * §7[§cTrollBoss§7] §e/border §7[player]");
+                p.sendMessage("§a * §7[§cTrollBoss§7] §e/noob §7[player]");
+                p.sendMessage("§a * §7[§cTrollBoss§7] §e/randomtroll §7[player]");
+                p.sendMessage("§a * §7[§cTrollBoss§7] §e/schlong §7[player]");
+                p.sendMessage("§a * §cType §4/troll help " + (i - 1) + " §cto get to the previous page");
+                p.sendMessage("§7§l|§e§l===============§7§l| §r§cVersion §4" +
+                        PLUGIN_VERSION + "§7§l |§e§l==============§7§l|");
+
+            }
+
+        } else {
+            p.sendMessage(StringManager.PREFIX + "§cCan't find help page §4" + i + "§c!");
+        }
+
     }
 }
