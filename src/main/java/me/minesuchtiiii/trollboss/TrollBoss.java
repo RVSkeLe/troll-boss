@@ -468,54 +468,6 @@ public class TrollBoss extends JavaPlugin {
 
     }
 
-    private void addInventoryTextItem(Player p, int inventorySlot, String text, int amount) {
-        final ItemStack dirt1 = new ItemStack(Material.DIRT, amount);
-        final ItemMeta dirt1meta = dirt1.getItemMeta();
-        dirt1meta.setDisplayName(Util.getRandomColor() + text);
-        dirt1.setItemMeta(dirt1meta);
-
-        p.getInventory().setItem(inventorySlot, dirt1);
-
-    }
-
-    public void addAllInventoryTextItems(Player p) {
-
-        p.getInventory().clear();
-
-        // Line 1
-        addInventoryTextItem(p, 9, "Hello,", 1);
-        addInventoryTextItem(p, 10, "I", 2);
-        addInventoryTextItem(p, 11, "hope", 3);
-        addInventoryTextItem(p, 12, "you", 4);
-        addInventoryTextItem(p, 13, "can", 5);
-        addInventoryTextItem(p, 14, "need", 6);
-        addInventoryTextItem(p, 15, "some", 7);
-        addInventoryTextItem(p, 16, "fresh", 8);
-        addInventoryTextItem(p, 17, "dirt..", 9);
-        // Line 2
-        addInventoryTextItem(p, 18, "if", 10);
-        addInventoryTextItem(p, 19, "not...", 11);
-        addInventoryTextItem(p, 20, "well", 12);
-        addInventoryTextItem(p, 21, "it's", 13);
-        addInventoryTextItem(p, 22, "too", 14);
-        addInventoryTextItem(p, 23, "late", 15);
-        addInventoryTextItem(p, 24, "anyway..", 16);
-        addInventoryTextItem(p, 25, "old", 17);
-        addInventoryTextItem(p, 26, "items", 18);
-        // Line 3
-        addInventoryTextItem(p, 27, "are", 19);
-        addInventoryTextItem(p, 28, "gone", 20);
-        addInventoryTextItem(p, 29, "for", 21);
-        addInventoryTextItem(p, 30, "ever..", 22);
-        addInventoryTextItem(p, 31, "hehe", 23);
-        addInventoryTextItem(p, 32, "see", 24);
-        addInventoryTextItem(p, 33, "you..", 25);
-        addInventoryTextItem(p, 34, "have", 26);
-        addInventoryTextItem(p, 35, "fun!", 27);
-
-    }
-
-
     /**
      * Cancels a scheduled task associated with the specified player and removes it from the task map.
      *
