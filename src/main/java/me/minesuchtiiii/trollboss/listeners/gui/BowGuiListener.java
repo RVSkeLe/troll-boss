@@ -1,183 +1,80 @@
 package me.minesuchtiiii.trollboss.listeners.gui;
 
 import me.minesuchtiiii.trollboss.TrollBoss;
+import me.minesuchtiiii.trollboss.inventory.BowInventoryHolder;
+import me.minesuchtiiii.trollboss.items.bows.BowsItem;
 import me.minesuchtiiii.trollboss.manager.GuiManager;
 import me.minesuchtiiii.trollboss.utils.StringManager;
-import org.bukkit.Material;
-import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
-
-import java.util.ArrayList;
 
 public class BowGuiListener implements Listener {
 
     private final TrollBoss plugin;
 
     public BowGuiListener(TrollBoss plugin) {
-
         this.plugin = plugin;
     }
 
     @EventHandler
     public void onInteractInBowGui(InventoryClickEvent e) {
 
-        if (e.getWhoClicked() instanceof Player p) {
-            if ("§cChoose a Troll-Bow".equals(e.getView().getTitle())) {
+        if (e.getClickedInventory() == null) return;
+        if (!(e.getInventory().getHolder(false) instanceof BowInventoryHolder)) return;
+        if (!(e.getWhoClicked() instanceof Player p)) return;
 
-                e.setCancelled(true);
+        int raw = e.getRawSlot();
+        if (raw >= e.getView().getTopInventory().getSize()) return;
 
-                if (e.getCurrentItem() != null) {
-                    if (e.getCurrentItem().getType() == Material.BOW) {
-                        if (e.getCurrentItem().hasItemMeta() && "§eBolt Bow".equals(e.getCurrentItem().getItemMeta().getDisplayName())) {
 
-                            final ItemStack b1 = new ItemStack(Material.BOW);
-                            final ItemMeta b1meta = b1.getItemMeta();
-                            b1meta.setDisplayName("§eBolt Bow");
-                            b1meta.addEnchant(Enchantment.INFINITY, 1, true);
-                            b1meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
-                            final ArrayList<String> b1metalore = new ArrayList<>();
-                            b1metalore.add("§7Strikes a lightning at the arrows location.");
-                            b1meta.setLore(b1metalore);
-                            b1.setItemMeta(b1meta);
+        e.setCancelled(true);
 
-                            p.getInventory().addItem(b1);
-                            this.plugin.closeGui(p);
-                            p.sendMessage(StringManager.PREFIX + "§eHave fun with the §7Bolt Bow§e!");
-                            this.plugin.addTroll();
-                            this.plugin.addBowStats("Bolt");
-
-                        } else if (e.getCurrentItem().hasItemMeta() && "§eBoom Bow".equals(e.getCurrentItem().getItemMeta().getDisplayName())) {
-
-                            final ItemStack b2 = new ItemStack(Material.BOW);
-                            final ItemMeta b2meta = b2.getItemMeta();
-                            b2meta.setDisplayName("§eBoom Bow");
-                            b2meta.addEnchant(Enchantment.INFINITY, 1, true);
-                            b2meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
-                            final ArrayList<String> b2metalore = new ArrayList<>();
-                            b2metalore.add("§7Creates an explosion at the arrows location.");
-                            b2meta.setLore(b2metalore);
-                            b2.setItemMeta(b2meta);
-
-                            p.getInventory().addItem(b2);
-                            this.plugin.closeGui(p);
-                            p.sendMessage(StringManager.PREFIX + "§eHave fun with the §7Boom Bow§e!");
-                            this.plugin.addTroll();
-                            this.plugin.addBowStats("Boom");
-
-                        } else if (e.getCurrentItem().hasItemMeta() && "§eCreeper Bow".equals(e.getCurrentItem().getItemMeta().getDisplayName())) {
-
-                            final ItemStack b3 = new ItemStack(Material.BOW);
-                            final ItemMeta b3meta = b3.getItemMeta();
-                            b3meta.setDisplayName("§eCreeper Bow");
-                            b3meta.addEnchant(Enchantment.INFINITY, 1, true);
-                            b3meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
-                            final ArrayList<String> b3metalore = new ArrayList<>();
-                            b3metalore.add("§7Spawns a creeper at the arrows location.");
-                            b3meta.setLore(b3metalore);
-                            b3.setItemMeta(b3meta);
-
-                            p.getInventory().addItem(b3);
-                            this.plugin.closeGui(p);
-                            p.sendMessage(StringManager.PREFIX + "§eHave fun with the §7Creeper Bow§e!");
-                            this.plugin.addTroll();
-                            this.plugin.addBowStats("Creeper");
-
-                        } else if (e.getCurrentItem().hasItemMeta() && "§ePull Bow".equals(e.getCurrentItem().getItemMeta().getDisplayName())) {
-
-                            final ItemStack b4 = new ItemStack(Material.BOW);
-                            final ItemMeta b4meta = b4.getItemMeta();
-                            b4meta.setDisplayName("§ePull Bow");
-                            b4meta.addEnchant(Enchantment.INFINITY, 1, true);
-                            b4meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
-                            final ArrayList<String> b4metalore = new ArrayList<>();
-                            b4metalore.add("§7Pulls the hit entity into your direction.");
-                            b4meta.setLore(b4metalore);
-                            b4.setItemMeta(b4meta);
-
-                            p.getInventory().addItem(b4);
-                            this.plugin.closeGui(p);
-                            p.sendMessage(StringManager.PREFIX + "§eHave fun with the §7Pull Bow§e!");
-                            this.plugin.addTroll();
-                            this.plugin.addBowStats("Pull");
-
-                        } else if (e.getCurrentItem().hasItemMeta() && "§eGet all bows at once".equals(e.getCurrentItem().getItemMeta().getDisplayName())) {
-
-                            final ItemStack b1 = new ItemStack(Material.BOW);
-                            final ItemMeta b1meta = b1.getItemMeta();
-                            b1meta.setDisplayName("§eBolt Bow");
-                            b1meta.addEnchant(Enchantment.INFINITY, 1, true);
-                            b1meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
-                            final ArrayList<String> b1metalore = new ArrayList<>();
-                            b1metalore.add("§7Strikes a lightning at the arrows location.");
-                            b1meta.setLore(b1metalore);
-                            b1.setItemMeta(b1meta);
-
-                            final ItemStack b2 = new ItemStack(Material.BOW);
-                            final ItemMeta b2meta = b2.getItemMeta();
-                            b2meta.setDisplayName("§eBoom Bow");
-                            b2meta.addEnchant(Enchantment.INFINITY, 1, true);
-                            b2meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
-                            final ArrayList<String> b2metalore = new ArrayList<>();
-                            b2metalore.add("§7Creates an explosion at the arrows location.");
-                            b2meta.setLore(b2metalore);
-                            b2.setItemMeta(b2meta);
-
-                            final ItemStack b3 = new ItemStack(Material.BOW);
-                            final ItemMeta b3meta = b3.getItemMeta();
-                            b3meta.setDisplayName("§eCreeper Bow");
-                            b3meta.addEnchant(Enchantment.INFINITY, 1, true);
-                            b3meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
-                            final ArrayList<String> b3metalore = new ArrayList<>();
-                            b3metalore.add("§7Spawns a creeper at the arrows location.");
-                            b3meta.setLore(b3metalore);
-                            b3.setItemMeta(b3meta);
-
-                            final ItemStack b4 = new ItemStack(Material.BOW);
-                            final ItemMeta b4meta = b4.getItemMeta();
-                            b4meta.setDisplayName("§ePull Bow");
-                            b4meta.addEnchant(Enchantment.INFINITY, 1, true);
-                            b4meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
-                            final ArrayList<String> b4metalore = new ArrayList<>();
-                            b4metalore.add("§7Pulls the hit entity into your direction.");
-                            b4meta.setLore(b4metalore);
-                            b4.setItemMeta(b4meta);
-
-                            p.getInventory().addItem(b1);
-                            p.getInventory().addItem(b2);
-                            p.getInventory().addItem(b3);
-                            p.getInventory().addItem(b4);
-                            this.plugin.closeGui(p);
-                            p.sendMessage(StringManager.PREFIX + "§eHave fun with those bows!");
-                            this.plugin.addTroll();
-                            this.plugin.addTroll();
-                            this.plugin.addTroll();
-                            this.plugin.addTroll();
-                            this.plugin.addBowStats("Bolt");
-                            this.plugin.addBowStats("Boom");
-                            this.plugin.addBowStats("Creeper");
-                            this.plugin.addBowStats("Pull");
-
-                        }
-
-                    } else if (e.getCurrentItem().getType() == Material.IRON_DOOR) {
-
-                        p.getOpenInventory().close();
-                        GuiManager.openGui(p);
-
-                    } else if (e.getCurrentItem().getType() == Material.GLASS_PANE) {
-
-                        e.setCancelled(true);
-
-                    }
-                }
-
+        switch (raw) {
+            case 0 -> giveBow(p, BowsItem.boltBow(), "Bolt");
+            case 1 -> giveBow(p, BowsItem.boomBow(), "Boom");
+            case 2 -> giveBow(p, BowsItem.creeperBow(), "Creeper");
+            case 3 -> giveBow(p, BowsItem.pullBow(), "Pull");
+            case 7 -> giveAllBows(p);
+            case 8 -> {
+                p.closeInventory();
+                GuiManager.openGui(p);
             }
+            // filler slots; do nothing
+            case 4, 5, 6 -> {}
         }
+    }
+
+    private void giveBow(Player p, ItemStack item, String type) {
+        p.getInventory().addItem(item);
+        plugin.closeGui(p);
+
+        p.sendMessage(StringManager.PREFIX + "§eHave fun with the §7" + type + " Bow§e!");
+
+        plugin.addTroll();
+        plugin.addBowStats(type);
+    }
+
+    private void giveAllBows(Player p) {
+        p.getInventory().addItem(BowsItem.boltBow());
+        p.getInventory().addItem(BowsItem.boomBow());
+        p.getInventory().addItem(BowsItem.creeperBow());
+        p.getInventory().addItem(BowsItem.pullBow());
+
+        plugin.closeGui(p);
+
+        p.sendMessage(StringManager.PREFIX + "§eHave fun with those bows!");
+
+        plugin.addTroll();
+        plugin.addTroll();
+        plugin.addTroll();
+        plugin.addTroll();
+
+        plugin.addBowStats("Bolt");
+        plugin.addBowStats("Boom");
+        plugin.addBowStats("Creeper");
+        plugin.addBowStats("Pull");
     }
 }
