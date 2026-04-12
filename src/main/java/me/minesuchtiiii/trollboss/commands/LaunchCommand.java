@@ -71,7 +71,7 @@ public class LaunchCommand implements CommandExecutor {
         Bukkit.getOnlinePlayers().stream()
                 .filter(player -> !player.equals(launcher))
                 .filter(plugin::canBeTrolled)
-                .forEach(plugin::launchPlayer);
+                .forEach(this::launchPlayer);
 
         plugin.addTroll();
         plugin.getStats().addStats("Launch", launcher);
@@ -92,5 +92,14 @@ public class LaunchCommand implements CommandExecutor {
         } else {
             launcher.sendMessage(StringManager.PREFIX + "§eYou launched §7" + target.getName() + "§e!");
         }
+    }
+
+    /**
+     * Launches a player upward by modifying their velocity.
+     *
+     * @param p the player to be launched; their vertical velocity will be increased.
+     */
+    public void launchPlayer(Player p) {
+        p.setVelocity(p.getVelocity().setY(3));
     }
 }

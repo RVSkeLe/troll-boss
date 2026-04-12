@@ -1,13 +1,15 @@
 package me.minesuchtiiii.trollboss.listeners.projectiles;
 
 import me.minesuchtiiii.trollboss.TrollBoss;
+import me.minesuchtiiii.trollboss.utils.Util;
 import org.bukkit.Location;
-import org.bukkit.entity.Arrow;
-import org.bukkit.entity.Player;
-import org.bukkit.entity.Projectile;
+import org.bukkit.World;
+import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.ProjectileHitEvent;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 
 public class ProjectileBowsHitListener implements Listener {
 
@@ -47,7 +49,7 @@ public class ProjectileBowsHitListener implements Listener {
                 }
                 if ("§eCreeper Bow".equalsIgnoreCase(p.getItemInHand().getItemMeta().getDisplayName())) {
 
-                    this.plugin.spawnCreeperForBow(aloc, p);
+                    spawnCreeperForBow(aloc, p);
                     a.remove();
                     this.plugin.bowCreepers++;
                     plugin.getStats().addBowStats("Creeper");
@@ -57,6 +59,21 @@ public class ProjectileBowsHitListener implements Listener {
             }
         }
 
+    }
+
+    public void spawnCreeperForBow(Location location, Player player) {
+        spawnCreeper(location, player, "Angry Creeper");
+    }
+
+    private void spawnCreeper(Location location, Player player, String creeperName) {
+        World world = player.getWorld();
+        Creeper creeper = (Creeper) world.spawnEntity(location, EntityType.CREEPER);
+
+        creeper.setCustomName(Util.getRandomColor() + creeperName);
+        creeper.setCustomNameVisible(true);
+        creeper.setPowered(true);
+        creeper.setRemoveWhenFarAway(true);
+        creeper.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 2, Integer.MAX_VALUE));
     }
 
 }

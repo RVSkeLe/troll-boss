@@ -78,7 +78,7 @@ public class RunforrestCommand implements CommandExecutor {
             return;
         }
 
-        if (plugin.rf.containsKey(target.getName()) || plugin.warnTime.containsKey(sender.getName())) {
+        if (plugin.getRunforrestManager().rf.containsKey(target.getName()) || plugin.getRunforrestManager().warnTime.containsKey(sender.getName())) {
             sender.sendMessage(StringManager.PREFIX + "§cCan't do this right now!");
             return;
         }
@@ -90,8 +90,8 @@ public class RunforrestCommand implements CommandExecutor {
         sender.sendMessage(StringManager.PREFIX + "§eStarted troll successfully!");
         plugin.getStats().addStats("Runforrest", sender);
         plugin.addTroll();
-        plugin.rftime.put(target.getName(), time);
-        plugin.start5SecRunTimer(target);
-        plugin.rfmsg.put(target.getName(), sender.getName());
+        plugin.getRunforrestManager().rftime.put(target.getName(), time);
+        plugin.getRunforrestManager().start5SecRunTimer(target);
+        plugin.getRunforrestManager().rfmsg.put(target.getName(), sender.getName());
     }
 }

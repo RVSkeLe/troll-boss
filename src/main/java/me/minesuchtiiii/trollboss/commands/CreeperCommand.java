@@ -4,10 +4,16 @@ import me.minesuchtiiii.trollboss.TrollBoss;
 import me.minesuchtiiii.trollboss.utils.StringManager;
 import me.minesuchtiiii.trollboss.utils.Util;
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
+import org.bukkit.World;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Creeper;
+import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 import org.jetbrains.annotations.NotNull;
 
 public class CreeperCommand implements CommandExecutor {
@@ -67,7 +73,7 @@ public class CreeperCommand implements CommandExecutor {
         }
 
         // Execute creeper spawn logic
-        this.plugin.spawnCreepers(target, target.getLocation(), DEFAULT_CREEPER_AMOUNT);
+        spawnCreepers(target, target.getLocation(), DEFAULT_CREEPER_AMOUNT);
         this.plugin.addTroll();
         plugin.getStats().addStats("Creeper", executor);
         executor.sendMessage(StringManager.PREFIX + "§eSpawned §7" + DEFAULT_CREEPER_AMOUNT + " §ecreeper at §7" + target.getName() + "§e's location!");
@@ -75,5 +81,25 @@ public class CreeperCommand implements CommandExecutor {
         this.plugin.creepers = DEFAULT_CREEPER_AMOUNT;
 
         Bukkit.getScheduler().runTaskLater(plugin, () -> this.plugin.creep = false, 20 * 60);
+    }
+
+    public void spawnCreepers(Player player, Location location, int amount) {
+        spawnCreeperWithName(player, location, amount, "Angry Creeper");
+    }
+
+    private void spawnCreeperWithName(Player player, Location location, int amount, String creeperName) {
+        World world = player.getWorld();
+        String customName = Util.getRandomColor() + creeperName;
+
+        for (int i = 0; i < amount; i++) {
+            Creeper creeper = (Creeper) world.spawnEntity(location, EntityType.CREEPER);
+            creeper.setCustomName(customName);
+            creeper.setCustomNameVisible(true);
+            creeper.setTarget(player);
+            creeper.setPowered(true);
+            creeper.damage(1.0D, player);
+            creeper.setRemoveWhenFarAway(true);
+            creeper.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 2, 99999999));
+        }
     }
 }
