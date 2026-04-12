@@ -1,6 +1,7 @@
 package me.minesuchtiiii.trollboss.listeners.gui;
 
 import me.minesuchtiiii.trollboss.TrollBoss;
+import me.minesuchtiiii.trollboss.utils.Util;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -27,7 +28,7 @@ public class StatisticsGuiListener implements Listener {
 
             if (e.getCurrentItem() != null && e.getCurrentItem().getType() == Material.EMERALD) {
 
-                this.plugin.closeGui(p);
+                Util.closeGui(p);
 
             } else if (e.getCurrentItem() != null && e.getCurrentItem().getType() == Material.BOW) {
 

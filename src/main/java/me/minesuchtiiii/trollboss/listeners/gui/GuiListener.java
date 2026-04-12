@@ -7,6 +7,7 @@ import me.minesuchtiiii.trollboss.manager.trolltutorial.TutorialManager;
 import me.minesuchtiiii.trollboss.trolls.TrollType;
 import me.minesuchtiiii.trollboss.utils.GuiItem;
 import me.minesuchtiiii.trollboss.utils.StringManager;
+import me.minesuchtiiii.trollboss.utils.Util;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -47,14 +48,14 @@ public class GuiListener implements Listener {
 
             final UUID targetUUID = this.plugin.trolling.get(p.getUniqueId());
             if (targetUUID == null) {
-                this.plugin.closeGui(p);
+                Util.closeGui(p);
                 return;
             }
 
             final String targetName = Bukkit.getPlayer(targetUUID) != null ? Bukkit.getPlayer(targetUUID).getName() : null;
 
             if (targetName == null) {
-                this.plugin.closeGui(p);
+                Util.closeGui(p);
                 p.sendMessage(StringManager.PREFIX + "§cSorry, the target is not online anymore!");
                 this.plugin.trolling.remove(p.getUniqueId());
                 return;
@@ -167,7 +168,7 @@ public class GuiListener implements Listener {
 
         if (checkTutorial(p)) return;
 
-        this.plugin.closeGui(p);
+        Util.closeGui(p);
         this.plugin.trolling.remove(p.getUniqueId());
 
         if (command != null) {

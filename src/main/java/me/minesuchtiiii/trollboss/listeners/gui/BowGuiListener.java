@@ -5,6 +5,7 @@ import me.minesuchtiiii.trollboss.inventory.BowInventoryHolder;
 import me.minesuchtiiii.trollboss.items.bows.BowsItem;
 import me.minesuchtiiii.trollboss.manager.GuiManager;
 import me.minesuchtiiii.trollboss.utils.StringManager;
+import me.minesuchtiiii.trollboss.utils.Util;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -49,7 +50,7 @@ public class BowGuiListener implements Listener {
 
     private void giveBow(Player p, ItemStack item, String type) {
         p.getInventory().addItem(item);
-        plugin.closeGui(p);
+        Util.closeGui(p);
 
         p.sendMessage(StringManager.PREFIX + "§eHave fun with the §7" + type + " Bow§e!");
 
@@ -63,7 +64,7 @@ public class BowGuiListener implements Listener {
         p.getInventory().addItem(BowsItem.creeperBow());
         p.getInventory().addItem(BowsItem.pullBow());
 
-        plugin.closeGui(p);
+        Util.closeGui(p);
 
         p.sendMessage(StringManager.PREFIX + "§eHave fun with those bows!");
 

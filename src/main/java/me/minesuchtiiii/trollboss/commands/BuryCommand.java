@@ -97,9 +97,9 @@ public class BuryCommand implements CommandExecutor {
 
     private void savePlayerState(Player target) {
         Location location = target.getLocation();
-        plugin.yloc.put(target.getName(), location.getY());
-        plugin.pitch.put(target.getName(), location.getPitch());
-        plugin.yaw.put(target.getName(), location.getYaw());
+        plugin.getBuryManager().yloc.put(target.getName(), location.getY());
+        plugin.getBuryManager().pitch.put(target.getName(), location.getPitch());
+        plugin.getBuryManager().yaw.put(target.getName(), location.getYaw());
         TrollManager.activate(target.getUniqueId(), TrollType.BURY);
     }
 
@@ -113,12 +113,12 @@ public class BuryCommand implements CommandExecutor {
             String targetName = target.getName();
 
             TrollManager.deactivate(target.getUniqueId(), TrollType.BURY);
-            plugin.yloc.remove(targetName);
+            plugin.getBuryManager().yloc.remove(targetName);
 
             target.teleport(oldLocation);
 
-            plugin.pitch.remove(targetName);
-            plugin.yaw.remove(targetName);
+            plugin.getBuryManager().pitch.remove(targetName);
+            plugin.getBuryManager().yaw.remove(targetName);
         }, time * 20L);
     }
 }
