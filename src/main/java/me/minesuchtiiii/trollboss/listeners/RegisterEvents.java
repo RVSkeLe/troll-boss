@@ -58,7 +58,7 @@ public class RegisterEvents {
         pm.registerEvents(new InteractEventTptroll(), plugin);
         pm.registerEvents(new ProjectileHitListener(), plugin);
         pm.registerEvents(new JoinListenerUpdate(plugin), plugin);
-        pm.registerEvents(new HerobrineListener(plugin), plugin);
+//        pm.registerEvents(new HerobrineListener(), plugin);
         pm.registerEvents(new HerobrineMoveListener(plugin), plugin);
         pm.registerEvents(new QuitListenerRestart(), plugin);
         pm.registerEvents(new DeathListenerBug(), plugin);

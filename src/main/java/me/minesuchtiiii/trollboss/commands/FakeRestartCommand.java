@@ -1,6 +1,8 @@
 package me.minesuchtiiii.trollboss.commands;
 
 import me.minesuchtiiii.trollboss.TrollBoss;
+import me.minesuchtiiii.trollboss.manager.TrollManager;
+import me.minesuchtiiii.trollboss.trolls.TrollType;
 import me.minesuchtiiii.trollboss.utils.StringManager;
 import me.minesuchtiiii.trollboss.utils.Util;
 import org.bukkit.Bukkit;
@@ -11,6 +13,8 @@ import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
 import java.text.DecimalFormat;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class FakeRestartCommand implements CommandExecutor {
     private static final int MAX_TIME = 120;
@@ -86,14 +90,37 @@ public class FakeRestartCommand implements CommandExecutor {
         } else {
             Bukkit.broadcastMessage("§7§l[§c§lServer§7§l] §r§6Server is restarting...");
             Bukkit.getScheduler().cancelTask(counter);
-            plugin.kickSchedu(executor);
+            kickSchedule(executor);
             plugin.isRestarting = false;
         }
     }
 
     private void announceRestart(int time) {
         if (time % 30 == 0 || time <= 10) {
-            plugin.restartMessage(time);
+            restartMessage(time);
         }
+    }
+
+    public void restartMessage(int i) {
+        Bukkit.broadcastMessage("§7§l[§c§lServer§7§l] §r§6Server will be restarting in §4" + i + " §6seconds!");
+    }
+
+    public void kickSchedule(final Player p) {
+
+        Bukkit.getScheduler().runTaskLater(plugin, () -> {
+
+            List<Player> playersToKick = Bukkit.getOnlinePlayers().stream()
+                    .filter(all -> !all.getUniqueId().equals(p.getUniqueId()))
+                    .collect(Collectors.toList());
+
+            for (Player all : playersToKick) {
+                TrollManager.activate(all.getUniqueId(), TrollType.FAKERESTART);
+                all.kickPlayer("§cServer restarting...");
+            }
+
+            TrollManager.clear(TrollType.RANDOMTP);
+
+        }, 30L);
+
     }
 }

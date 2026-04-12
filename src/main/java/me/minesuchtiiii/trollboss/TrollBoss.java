@@ -101,7 +101,6 @@ public class TrollBoss extends JavaPlugin {
         Bukkit.getServer().getScheduler().cancelTasks(this);
 
         saveTrolls();
-        unsetHerobrines();
     }
 
     private void saveDefaultConfigFile() {
@@ -137,10 +136,6 @@ public class TrollBoss extends JavaPlugin {
 
     }
 
-    private void unsetHerobrines() {
-        Bukkit.getOnlinePlayers().forEach(this::unsetHerobrine);
-    }
-
     public StatsManager getStats() {
         return statsManager;
     }
@@ -153,46 +148,6 @@ public class TrollBoss extends JavaPlugin {
         return trampleManager;
     }
 
-    public void setHerobrine(Player p) {
-
-        TrollManager.activate(p.getUniqueId(), TrollType.HEROBRINE);
-
-        Bukkit.getOnlinePlayers().forEach(all -> all.hidePlayer(this, p));
-
-    }
-
-    public void unsetHerobrine(Player p) {
-
-        TrollManager.deactivate(p.getUniqueId(), TrollType.HEROBRINE);
-
-        Bukkit.getOnlinePlayers().forEach(all -> all.showPlayer(this, p));
-    }
-
-    public void restartMessage(int i) {
-
-        Bukkit.broadcastMessage("§7§l[§c§lServer§7§l] §r§6Server will be restarting in §4" + i + " §6seconds!");
-
-    }
-
-    public void kickSchedu(final Player p) {
-
-        Bukkit.getScheduler().runTaskLater(this, () -> {
-
-            List<Player> playersToKick = Bukkit.getOnlinePlayers().stream()
-                    .filter(all -> !all.getUniqueId().equals(p.getUniqueId()))
-                    .collect(Collectors.toList());
-
-            for (Player all : playersToKick) {
-                TrollManager.activate(all.getUniqueId(), TrollType.FAKERESTART);
-                all.kickPlayer("§cServer restarting...");
-            }
-
-            TrollManager.clear(TrollType.RANDOMTP);
-
-        }, 30L);
-
-    }
-
     public boolean canBeTrolled(Player p) {
 
         if (p.isOp()) {
@@ -200,13 +155,6 @@ public class TrollBoss extends JavaPlugin {
         }
 
         return !p.hasPermission("troll.bypass");
-    }
-
-    public int createRandom(int lower, int upper) {
-
-        final Random r = new Random();
-
-        return r.nextInt((upper - lower) + 1) + lower;
     }
 
     public void closeGui(Player p) {

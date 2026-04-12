@@ -2,6 +2,7 @@ package me.minesuchtiiii.trollboss.commands;
 
 import me.minesuchtiiii.trollboss.TrollBoss;
 import me.minesuchtiiii.trollboss.manager.TrollManager;
+import me.minesuchtiiii.trollboss.trolls.HerobrineHelper;
 import me.minesuchtiiii.trollboss.trolls.TrollType;
 import me.minesuchtiiii.trollboss.utils.StringManager;
 import me.minesuchtiiii.trollboss.utils.Util;
@@ -54,15 +55,16 @@ public class HerobrineCommand implements CommandExecutor {
 
     private void toggleHerobrine(Player executor, Player target, String successMessage, String removeMessage) {
         if (!TrollManager.isActive(target.getUniqueId(), TrollType.HEROBRINE)) {
-            plugin.setHerobrine(target);
+            HerobrineHelper.setHerobrine(target);
             executor.sendMessage(StringManager.PREFIX + successMessage);
             target.sendMessage(SUCCESS_HEROBRINE);
         } else {
-            plugin.unsetHerobrine(target);
+            HerobrineHelper.unsetHerobrine(target);
             executor.sendMessage(StringManager.PREFIX + removeMessage);
             target.sendMessage(REMOVE_HEROBRINE);
         }
         plugin.addTroll();
         plugin.getStats().addStats("Herobrine", executor);
     }
+
 }
