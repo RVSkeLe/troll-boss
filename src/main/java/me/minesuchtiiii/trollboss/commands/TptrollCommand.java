@@ -59,7 +59,7 @@ public class TptrollCommand implements CommandExecutor {
     private void giveTrollItemWithDelay(Player giver, Player receiver) {
         ItemStack item = TeleportTrollItem.create();
         plugin.addTroll();
-        plugin.addStats("Teleporttroll", giver);
+        plugin.getStats().addStats("Teleporttroll", giver);
         Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, () -> receiver.getInventory().addItem(item), ITEM_DELAY_TICKS);
     }
 }

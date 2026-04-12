@@ -58,7 +58,7 @@ public class LaunchCommand implements CommandExecutor {
         target.setVelocity(target.getVelocity().setY(3));
         sendLaunchMessage(launcher, target);
         plugin.addTroll();
-        plugin.addStats("Launch", launcher);
+        plugin.getStats().addStats("Launch", launcher);
     }
 
     private void launchAllPlayers(Player launcher) {
@@ -73,7 +73,7 @@ public class LaunchCommand implements CommandExecutor {
                 .forEach(plugin::launchPlayer);
 
         plugin.addTroll();
-        plugin.addStats("Launch", launcher);
+        plugin.getStats().addStats("Launch", launcher);
         launcher.sendMessage(StringManager.PREFIX + "§eYou launched everyone, except the players who can bypass it!");
     }
 

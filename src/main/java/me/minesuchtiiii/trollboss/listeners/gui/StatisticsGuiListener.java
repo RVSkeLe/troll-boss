@@ -31,7 +31,7 @@ public class StatisticsGuiListener implements Listener {
 
             } else if (e.getCurrentItem() != null && e.getCurrentItem().getType() == Material.BOW) {
 
-                this.plugin.openBowStatisticsInv(p);
+                plugin.getStats().openBowStatisticsInv(p);
 
             }
 
@@ -42,7 +42,7 @@ public class StatisticsGuiListener implements Listener {
 
             if (e.getCurrentItem() != null && e.getCurrentItem().getType() == Material.EMERALD) {
 
-                this.plugin.openStatisticsInv(p);
+                plugin.getStats().openStatisticsInv(p);
 
             }
 

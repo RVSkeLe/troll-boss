@@ -60,6 +60,6 @@ public class PumpkinheadCommand implements CommandExecutor {
         target.getInventory().setHelmet(PUMPKIN_HEAD);
         executor.sendMessage(String.format("%s§eGave the §7pumpkinhead §eto §7%s§e!", StringManager.PREFIX, target.getName()));
         plugin.addTroll();
-        plugin.addStats("Pumpkinhead", executor);
+        plugin.getStats().addStats("Pumpkinhead", executor);
     }
 }

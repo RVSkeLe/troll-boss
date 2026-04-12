@@ -71,7 +71,7 @@ public class RandomTpCommand implements CommandExecutor {
         }
 
         plugin.addTroll();
-        plugin.addStats("Randomteleport", player);
+        plugin.getStats().addStats("Randomteleport", player);
         TrollManager.activate(target.getUniqueId(), TrollType.RANDOMTP);
 
         player.sendMessage(StringManager.PREFIX + "§7" + target.getName()

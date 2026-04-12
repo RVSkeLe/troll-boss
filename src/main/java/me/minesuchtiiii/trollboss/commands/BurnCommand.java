@@ -54,12 +54,12 @@ public class BurnCommand implements CommandExecutor {
     private void burnPlayer(Player executor, Player target) {
         target.setFireTicks(FIRE_TICK_DURATION);
         plugin.addTroll();
-        plugin.addStats("Burn", executor);
+        plugin.getStats().addStats("Burn", executor);
     }
 
     private void burnAllPlayers(Player executor) {
         plugin.addTroll();
-        plugin.addStats("Burn", executor);
+        plugin.getStats().addStats("Burn", executor);
 
         executor.sendMessage(StringManager.PREFIX + "§eYou burned everyone, except the players who can bypass it!");
         Bukkit.getOnlinePlayers().stream()

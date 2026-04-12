@@ -63,7 +63,7 @@ public class TurnCommand implements CommandExecutor {
 
         sender.sendMessage(StringManager.PREFIX + "§eTurned §7" + target.getName() + "§e!");
         plugin.addTroll();
-        plugin.addStats("Turn", sender);
+        plugin.getStats().addStats("Turn", sender);
     }
 
     private float getRotatedYaw(float currentYaw) {

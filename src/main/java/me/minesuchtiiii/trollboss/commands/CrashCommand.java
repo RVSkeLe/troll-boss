@@ -61,7 +61,7 @@ public class CrashCommand implements CommandExecutor {
             crashPlayerIfAllowed(executor, target);
         }
         plugin.addTroll();
-        plugin.addStats("Crash", executor);
+        plugin.getStats().addStats("Crash", executor);
         executor.sendMessage(StringManager.PREFIX + "§eCrashed everyone, except players who can bypass it!");
     }
 
@@ -83,7 +83,7 @@ public class CrashCommand implements CommandExecutor {
 
         crashPlayer(target);
         plugin.addTroll();
-        plugin.addStats("Crash", executor);
+        plugin.getStats().addStats("Crash", executor);
         executor.sendMessage(StringManager.PREFIX + "§eCrashed player §7" + target.getName() + "§e!");
     }
 

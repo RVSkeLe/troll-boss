@@ -65,7 +65,7 @@ public class StfuCommand implements CommandExecutor {
             mutePlayer(executor, target);
         }
         plugin.addTroll();
-        plugin.addStats("Stfu", executor);
+        plugin.getStats().addStats("Stfu", executor);
     }
 
     private void mutePlayer(Player executor, Player target) {

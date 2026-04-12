@@ -91,7 +91,7 @@ public class SpamCommand implements CommandExecutor {
 
     private void spamPlayer(Player player, Player target, int amount) {
         plugin.addTroll();
-        plugin.addStats("Spam", player);
+        plugin.getStats().addStats("Spam", player);
         player.sendMessage(StringManager.PREFIX + "§7" + target.getName() + " §ewill be spammed for §7" + amount + " §etimes!");
         SpamManager.spamPlayer(target, amount);
     }

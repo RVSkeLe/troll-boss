@@ -92,7 +92,7 @@ public class SkyCommand implements CommandExecutor {
 
         // Notify players
         plugin.addTroll();
-        plugin.addStats("Sky", player);
+        plugin.getStats().addStats("Sky", player);
         double minutes = time / 60.0;
         player.sendMessage(String.format("%s§7%s §ewill enjoy the sky for §7%d §eseconds! §c(~%.2f minutes)", StringManager.PREFIX, targetName, time, minutes));
 

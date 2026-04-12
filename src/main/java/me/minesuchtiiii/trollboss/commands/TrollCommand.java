@@ -90,7 +90,7 @@ public class TrollCommand implements CommandExecutor {
 
     private void openStatistics(Player player) {
         if (player.hasPermission(PERMISSION_STATISTICS)) {
-            plugin.openStatisticsInv(player);
+            plugin.getStats().openStatisticsInv(player);
         } else {
             player.sendMessage(StringManager.NOPERM);
         }

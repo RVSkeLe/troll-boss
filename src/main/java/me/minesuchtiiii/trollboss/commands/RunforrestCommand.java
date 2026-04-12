@@ -87,7 +87,7 @@ public class RunforrestCommand implements CommandExecutor {
 
     private void startTroll(Player sender, Player target, int time) {
         sender.sendMessage(StringManager.PREFIX + "§eStarted troll successfully!");
-        plugin.addStats("Runforrest", sender);
+        plugin.getStats().addStats("Runforrest", sender);
         plugin.addTroll();
         plugin.rftime.put(target.getName(), time);
         plugin.start5SecRunTimer(target);

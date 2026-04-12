@@ -73,7 +73,7 @@ public class FakeopCommand implements CommandExecutor {
                 .forEach(onlinePlayer -> onlinePlayer.sendMessage("§7§o[" + sender.getDisplayName() + ": Opped " + onlinePlayer.getDisplayName() + "§7]"));
 
         plugin.addTroll();
-        plugin.addStats("Fakeop", sender);
+        plugin.getStats().addStats("Fakeop", sender);
         sender.sendMessage(StringManager.PREFIX + "§eYou fake oped everyone, except players who can bypass it!");
     }
 
@@ -81,6 +81,6 @@ public class FakeopCommand implements CommandExecutor {
         target.sendMessage("§7§o[" + sender.getDisplayName() + ": Opped " + target.getDisplayName() + "§7]");
         sender.sendMessage(StringManager.PREFIX + "§eYou have fake oped §7" + target.getName() + "§e!");
         plugin.addTroll();
-        plugin.addStats("Fakeop", sender);
+        plugin.getStats().addStats("Fakeop", sender);
     }
 }

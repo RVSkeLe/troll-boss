@@ -76,7 +76,7 @@ public class BoomCommand implements CommandExecutor {
     private void handleAllExplosion(Player player) {
         player.sendMessage(StringManager.PREFIX + "§eEveryone is going to explode, except the players who can bypass it!");
         plugin.addTroll();
-        plugin.addStats("Boom", player);
+        plugin.getStats().addStats("Boom", player);
 
         Bukkit.getOnlinePlayers().stream()
                 .filter(target -> target != player && canTargetBeExploded(target))
@@ -96,7 +96,7 @@ public class BoomCommand implements CommandExecutor {
 
         TrollManager.activate(target.getUniqueId(), TrollType.BOOM);
         plugin.addTroll();
-        plugin.addStats("Boom", initiator); // Will be refactored later, since it's in capital case and not UPPER
+        plugin.getStats().addStats("Boom", initiator); // Will be refactored later, since it's in capital case and not UPPER
 
         Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, () -> {
             target.getLocation().getWorld().createExplosion(

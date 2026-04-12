@@ -103,7 +103,7 @@ public class HurtCommand implements CommandExecutor {
 
     private void startHurtTask(Player player, Player target, int count) {
         plugin.addTroll();
-        plugin.addStats("Hurt", player);
+        plugin.getStats().addStats("Hurt", player);
         TrollManager.activate(target.getUniqueId(), TrollType.HURT);
         player.sendMessage(PREFIX + "§7" + target.getName() + " §ewill be hurt!");
 

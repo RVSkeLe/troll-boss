@@ -81,7 +81,7 @@ public class VoidCommand implements CommandExecutor {
 
     private void startVoidSequence(Player player, Player target) {
         plugin.addTroll();
-        plugin.addStats("Void", player);
+        plugin.getStats().addStats("Void", player);
         player.sendMessage(StringManager.PREFIX + "§eKilling §7" + target.getName() + " §ein void!");
 
         TrollManager.activate(target.getUniqueId(), TrollType.VOID);

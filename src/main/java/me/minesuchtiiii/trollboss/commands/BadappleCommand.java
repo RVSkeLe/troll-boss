@@ -52,7 +52,7 @@ public class BadappleCommand implements CommandExecutor {
     private void handleAppleForPlayer(Player player) {
         addAppleAndNotify(player, player, true);
         this.plugin.addTroll();
-        this.plugin.addStats("Badapple", player);
+        plugin.getStats().addStats("Badapple", player);
     }
 
     private void handleAppleForAll(Player player) {
@@ -62,7 +62,7 @@ public class BadappleCommand implements CommandExecutor {
             }
         }
         this.plugin.addTroll();
-        this.plugin.addStats("Badapple", player);
+        plugin.getStats().addStats("Badapple", player);
         player.sendMessage(StringManager.PREFIX + "§eThe §7troll apple §ehas been added to everyone's inventory, except the players who can bypass it!");
     }
 
@@ -80,7 +80,7 @@ public class BadappleCommand implements CommandExecutor {
 
         addAppleAndNotify(sender, target, false);
         this.plugin.addTroll();
-        this.plugin.addStats("Badapple", sender);
+        plugin.getStats().addStats("Badapple", sender);
 
     }
 

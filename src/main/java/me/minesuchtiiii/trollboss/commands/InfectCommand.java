@@ -90,7 +90,7 @@ public class InfectCommand implements CommandExecutor {
 
     private void infectTarget(Player sender, Player target, int duration) {
         plugin.addTroll();
-        plugin.addStats("Infect", sender);
+        plugin.getStats().addStats("Infect", sender);
 
         double minutes = duration / 60.0;
         String timeFormatted = DECIMAL_FORMAT.format(minutes);

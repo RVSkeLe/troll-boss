@@ -94,7 +94,7 @@ public class FreefallCommand implements CommandExecutor {
         double newY = target.getLocation().getY() + amount;
 
         this.plugin.addTroll();
-        this.plugin.addStats("Freefall", sender);
+        plugin.getStats().addStats("Freefall", sender);
         TrollManager.activate(target.getUniqueId(), TrollType.FREEFALL);
 
         target.setFlying(false);

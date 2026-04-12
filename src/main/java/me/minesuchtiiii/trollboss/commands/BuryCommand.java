@@ -91,7 +91,7 @@ public class BuryCommand implements CommandExecutor {
         executor.sendMessage(StringManager.PREFIX + "§7" + target.getName() + " §eis buried for §7" + time + " §eseconds!");
 
         plugin.addTroll();
-        plugin.addStats("Bury", executor);
+        plugin.getStats().addStats("Bury", executor);
     }
 
     private void savePlayerState(Player target) {

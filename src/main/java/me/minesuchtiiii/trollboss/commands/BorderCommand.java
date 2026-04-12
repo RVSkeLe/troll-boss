@@ -65,7 +65,7 @@ public class BorderCommand implements CommandExecutor {
         }
 
         plugin.addTroll();
-        plugin.addStats("Border", player);
+        plugin.getStats().addStats("Border", player);
         player.sendMessage(String.format("%s§eTeleporting §7%s §eto the world border!", StringManager.PREFIX, target.getName()));
         plugin.teleportToBorder(target);
     }

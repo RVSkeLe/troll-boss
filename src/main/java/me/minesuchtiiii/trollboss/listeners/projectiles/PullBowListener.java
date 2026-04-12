@@ -43,7 +43,7 @@ public class PullBowListener implements Listener {
                         e.getEntity().setVelocity(direction);
                         a.remove();
 
-                        this.plugin.addBowStats("Pull");
+                        plugin.getStats().addBowStats("Pull");
 
                     }
 

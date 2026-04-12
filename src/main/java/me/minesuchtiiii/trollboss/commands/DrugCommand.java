@@ -58,7 +58,7 @@ public class DrugCommand implements CommandExecutor {
         applyPotionEffects(targetPlayer);
         player.sendMessage(StringManager.PREFIX + "§eDrugged §7" + targetPlayer.getName() + "§e!");
         plugin.addTroll();
-        plugin.addStats("Drug", player);
+        plugin.getStats().addStats("Drug", player);
 
         return true;
     }

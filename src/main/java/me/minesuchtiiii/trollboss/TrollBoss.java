@@ -2,7 +2,9 @@ package me.minesuchtiiii.trollboss;
 
 import me.minesuchtiiii.trollboss.commands.manager.RegisterCommands;
 import me.minesuchtiiii.trollboss.listeners.RegisterEvents;
+import me.minesuchtiiii.trollboss.manager.StatsManager;
 import me.minesuchtiiii.trollboss.manager.TrollManager;
+import me.minesuchtiiii.trollboss.trolls.GarbageManager;
 import me.minesuchtiiii.trollboss.trolls.TrollType;
 import me.minesuchtiiii.trollboss.utils.GuiItem;
 import me.minesuchtiiii.trollboss.utils.StringManager;
@@ -31,15 +33,13 @@ import java.util.stream.Collectors;
 // This thing is a god class and needs to be refactored heavily :/
 public class TrollBoss extends JavaPlugin {
 
+    private StatsManager statsManager;
+    private GarbageManager garbageManager;
     public static final int HELP_PAGES = 6;
     private static final int METRICS_ID = 15941;
     private static TrollBoss INSTANCE;
     public final Map<UUID, List<Location>> ufoBlockLocations = new HashMap<>();
     private final ArrayList<Entity> cows = new ArrayList<>();
-    private final File gbmsgs = new File(getDataFolder() + "/GarbageMessages.yml");
-    private final File stats = new File(getDataFolder() + "/stats.yml");
-    private final FileConfiguration gbmsgscfg = YamlConfiguration.loadConfiguration(gbmsgs);
-    private final FileConfiguration statscfg = YamlConfiguration.loadConfiguration(stats);
     private final HashMap<String, Integer> fiveSecondTimerTask = new HashMap<>();
     private final HashMap<String, Integer> sixtySecondTimerTask = new HashMap<>();
     private final HashMap<String, Integer> tasks2 = new HashMap<>();
@@ -94,8 +94,10 @@ public class TrollBoss extends JavaPlugin {
         update = getConfig().getBoolean("Auto-Update");
 
         checkForUpdate();
-        check4File();
-        check4otherFile();
+        this.statsManager = new StatsManager(this);
+        this.statsManager.checkFile();
+        this.garbageManager = new GarbageManager(this);
+        this.garbageManager.init();
 
         new Metrics(this, METRICS_ID);
     }
@@ -158,6 +160,14 @@ public class TrollBoss extends JavaPlugin {
             }
         });
 
+    }
+
+    public StatsManager getStats() {
+        return statsManager;
+    }
+
+    public GarbageManager getGarbageManager() {
+        return garbageManager;
     }
 
     public void notOnline(Player p, String name) {
@@ -283,7 +293,6 @@ public class TrollBoss extends JavaPlugin {
 
     }
 
-    @SuppressWarnings("deprecation")
     public void spawnCow(Player p) {
         final Location ploc = p.getLocation();
 
@@ -409,308 +418,6 @@ public class TrollBoss extends JavaPlugin {
 
     }
 
-    private void saveStats() {
-
-        try {
-
-            statscfg.save(stats);
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-    }
-
-    private void savegbmsgs() {
-
-        try {
-
-            gbmsgscfg.save(gbmsgs);
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-    }
-
-    private void check4File() {
-
-        if (!(stats.exists())) {
-
-            try {
-
-                stats.createNewFile();
-                addStatsDefaults();
-                getLogger().info("Created stats file.");
-                saveStats();
-                getLogger().info("Saved stats file.");
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-        } else {
-
-            saveStats();
-
-        }
-
-    }
-
-    private void check4otherFile() {
-
-        if (!(gbmsgs.exists())) {
-
-            try {
-
-                gbmsgs.createNewFile();
-                addGarbageDefaults();
-                getLogger().info("Created GarbageMessages file.");
-                savegbmsgs();
-                getLogger().info("Saved GarbageMessages file.");
-
-            } catch (IOException e) {
-
-                e.printStackTrace();
-
-            }
-
-        } else {
-
-            savegbmsgs();
-
-        }
-
-    }
-
-    @SuppressWarnings("deprecation")
-    private void addGarbageDefaults() {
-
-        gbmsgscfg.options().header("You can add up to 100 messages if you want");
-
-        gbmsgscfg.addDefault("Messages.1", "I am such an idiot, unbelievable!");
-        gbmsgscfg.addDefault("Messages.2", "I just hate humans");
-        gbmsgscfg.addDefault("Messages.3", "Can you all please be quiet? I have to meditate!");
-        gbmsgscfg.addDefault("Messages.4", "My mother should have aborted me..");
-        gbmsgscfg.addDefault("Messages.5", "Hey girls, want to meet? ;)");
-        gbmsgscfg.addDefault("Messages.6", "A doctor tells a woman she can no longer touch anything alcoholic. So she gets a divorce.");
-        gbmsgscfg.addDefault("Messages.7", "What's the difference between men and pigs? Pigs don't turn into men when they drink.");
-        gbmsgscfg.addDefault("Messages.8", "I have noticed that everyone who is for abortion, has already been born.");
-        gbmsgscfg.addDefault("Messages.9", "The best mathematical equation I have ever seen: 1 cross + 3 nails = 4 given.");
-        gbmsgscfg.addDefault("Messages.10", "We can't help everyone, but everyone can help someone.");
-        gbmsgscfg.addDefault("Messages.11", "Ok, I admit that I have a foot fetish..");
-        gbmsgscfg.addDefault("Messages.12", "I still play with barbies");
-        gbmsgscfg.addDefault("Messages.13", "Sometimes I just cry without a reason :(");
-        gbmsgscfg.addDefault("Messages.14", "Don't tell anyone.. but my aunt is very sexy *_*");
-        gbmsgscfg.addDefault("Messages.15", "My favorite color is toast");
-        gbmsgscfg.addDefault("Messages.16", "Don't tell anyone.. but my girlfriend ain't a girl.....");
-        gbmsgscfg.addDefault("Messages.17", "Who wants to fight me? Come on, don't be shy!!");
-        gbmsgscfg.addDefault("Messages.18", "I am 40 years old and from somalia");
-        gbmsgscfg.addDefault("Messages.19", "I am naked at the moment");
-        gbmsgscfg.addDefault("Messages.20", "Can someone kill me please?");
-        gbmsgscfg.addDefault("Messages.21", "I love pet wussies");
-        gbmsgscfg.addDefault("Messages.22", "Call me please I'm desperate");
-        gbmsgscfg.addDefault("Messages.23", "The future, the present and the past walked into a bar. Things got a little tense..");
-        gbmsgscfg.addDefault("Messages.24", "My doctors office has two doctors on call at all times. Is that considered a pair a docs?");
-        gbmsgscfg.addDefault("Messages.25", "Q: What do you call the security outside of a Samsung Store? A: Guardians of the Galaxy.");
-        gbmsgscfg.addDefault("Messages.26", "This message shouldn't exist...");
-
-        gbmsgscfg.options().copyDefaults(true);
-
-    }
-
-    private int getAmountOfGarbageMessages() {
-
-        int amount = 0;
-
-        for (int i = 0; i < 100; i++) {
-
-            if (this.gbmsgscfg.get("Messages." + i) != null) {
-
-                amount++;
-
-            } else {
-
-                amount += 0;
-
-            }
-
-        }
-
-        return amount;
-
-    }
-
-    private void addStatsDefaults() {
-
-        statscfg.addDefault("Troll.Burn", 0);
-        statscfg.addDefault("Troll.Freeze", 0);
-        statscfg.addDefault("Troll.Bolt", 0);
-        statscfg.addDefault("Troll.Special", 0);
-        statscfg.addDefault("Troll.Boom", 0);
-        statscfg.addDefault("Troll.Push", 0);
-        statscfg.addDefault("Troll.Fakeop", 0);
-        statscfg.addDefault("Troll.Fakedeop", 0);
-        statscfg.addDefault("Troll.Launch", 0);
-        statscfg.addDefault("Troll.Spam", 0);
-        statscfg.addDefault("Troll.Gokill", 0);
-        statscfg.addDefault("Troll.Switch", 0);
-        statscfg.addDefault("Troll.Trollkick", 0);
-        statscfg.addDefault("Troll.Badapple", 0);
-        statscfg.addDefault("Troll.Potatotroll", 0);
-        statscfg.addDefault("Troll.Trap", 0);
-        statscfg.addDefault("Troll.Teleporttroll", 0);
-        statscfg.addDefault("Troll.Infect", 0);
-        statscfg.addDefault("Troll.Herobrine", 0);
-        statscfg.addDefault("Troll.Fakerestart", 0);
-        statscfg.addDefault("Troll.Turn", 0);
-        statscfg.addDefault("Troll.Starve", 0);
-        statscfg.addDefault("Troll.Hurt", 0);
-        statscfg.addDefault("Troll.Void", 0);
-        statscfg.addDefault("Troll.Pumpkinhead", 0);
-        statscfg.addDefault("Troll.Bury", 0);
-        statscfg.addDefault("Troll.Nomine", 0);
-        statscfg.addDefault("Troll.Randomteleport", 0);
-        statscfg.addDefault("Troll.Crash", 0);
-        statscfg.addDefault("Troll.Freefall", 0);
-        statscfg.addDefault("Troll.Webtrap", 0);
-        statscfg.addDefault("Troll.Spank", 0);
-        statscfg.addDefault("Troll.Trample", 0);
-        statscfg.addDefault("Troll.Stfu", 0);
-        statscfg.addDefault("Troll.Popup", 0);
-        statscfg.addDefault("Troll.Sky", 0);
-        statscfg.addDefault("Troll.Abduct", 0);
-        statscfg.addDefault("Troll.Popular", 0);
-        statscfg.addDefault("Troll.Creeper", 0);
-        statscfg.addDefault("Troll.Sparta", 0);
-        statscfg.addDefault("Troll.Trollbows", 0);
-        statscfg.addDefault("Troll.Drug", 0);
-        statscfg.addDefault("Troll.Squidrain", 0);
-        statscfg.addDefault("Troll.Dropinv", 0);
-        statscfg.addDefault("Troll.Garbage", 0);
-        statscfg.addDefault("Troll.Anvil", 0);
-        statscfg.addDefault("Troll.Invtext", 0);
-        statscfg.addDefault("Troll.Runforrest", 0);
-        statscfg.addDefault("Troll.Border", 0);
-        statscfg.addDefault("Troll.Noob", 0);
-        statscfg.addDefault("Troll.Randomtroll", 0);
-        statscfg.addDefault("Troll.Schlong", 0);
-        statscfg.addDefault("Troll.Denymove", 0);
-
-        statscfg.addDefault("Troll.Bows.Bolt", 0);
-        statscfg.addDefault("Troll.Bows.Boom", 0);
-        statscfg.addDefault("Troll.Bows.Creeper", 0);
-        statscfg.addDefault("Troll.Bows.Pull", 0);
-
-
-        statscfg.addDefault("LastUsed.Burn", "Nobody");
-        statscfg.addDefault("LastUsed.Freeze", "Nobody");
-        statscfg.addDefault("LastUsed.Bolt", "Nobody");
-        statscfg.addDefault("LastUsed.Special", "Nobody");
-        statscfg.addDefault("LastUsed.Boom", "Nobody");
-        statscfg.addDefault("LastUsed.Push", "Nobody");
-        statscfg.addDefault("LastUsed.Fakeop", "Nobody");
-        statscfg.addDefault("LastUsed.Fakedeop", "Nobody");
-        statscfg.addDefault("LastUsed.Launch", "Nobody");
-        statscfg.addDefault("LastUsed.Spam", "Nobody");
-        statscfg.addDefault("LastUsed.Gokill", "Nobody");
-        statscfg.addDefault("LastUsed.Switch", "Nobody");
-        statscfg.addDefault("LastUsed.Trollkick", "Nobody");
-        statscfg.addDefault("LastUsed.Badapple", "Nobody");
-        statscfg.addDefault("LastUsed.Potatotroll", "Nobody");
-        statscfg.addDefault("LastUsed.Trap", "Nobody");
-        statscfg.addDefault("LastUsed.Tptroll", "Nobody");
-        statscfg.addDefault("LastUsed.Infect", "Nobody");
-        statscfg.addDefault("LastUsed.Herobrine", "Nobody");
-        statscfg.addDefault("LastUsed.Fakerestart", "Nobody");
-        statscfg.addDefault("LastUsed.Turn", "Nobody");
-        statscfg.addDefault("LastUsed.Starve", "Nobody");
-        statscfg.addDefault("LastUsed.Teleporttroll", "Nobody");
-        statscfg.addDefault("LastUsed.Hurt", "Nobody");
-        statscfg.addDefault("LastUsed.Void", "Nobody");
-        statscfg.addDefault("LastUsed.Pumpkinhead", "Nobody");
-        statscfg.addDefault("LastUsed.Bury", "Nobody");
-        statscfg.addDefault("LastUsed.Nomine", "Nobody");
-        statscfg.addDefault("LastUsed.Randomteleport", "Nobody");
-        statscfg.addDefault("LastUsed.Crash", "Nobody");
-        statscfg.addDefault("LastUsed.Freefall", "Nobody");
-        statscfg.addDefault("LastUsed.Webtrap", "Nobody");
-        statscfg.addDefault("LastUsed.Spank", "Nobody");
-        statscfg.addDefault("LastUsed.Trample", "Nobody");
-        statscfg.addDefault("LastUsed.Stfu", "Nobody");
-        statscfg.addDefault("LastUsed.Popup", "Nobody");
-        statscfg.addDefault("LastUsed.Sky", "Nobody");
-        statscfg.addDefault("LastUsed.Abduct", "Nobody");
-        statscfg.addDefault("LastUsed.Popular", "Nobody");
-        statscfg.addDefault("LastUsed.Creeper", "Nobody");
-        statscfg.addDefault("LastUsed.Sparta", "Nobody");
-        statscfg.addDefault("LastUsed.Trollbows", "Nobody");
-        statscfg.addDefault("LastUsed.Drug", "Nobody");
-        statscfg.addDefault("LastUsed.Squidrain", "Nobody");
-        statscfg.addDefault("LastUsed.Dropinv", "Nobody");
-        statscfg.addDefault("LastUsed.Garbage", "Nobody");
-        statscfg.addDefault("LastUsed.Anvil", "Nobody");
-        statscfg.addDefault("LastUsed.Invtext", "Nobody");
-        statscfg.addDefault("LastUsed.Runforrest", "Nobody");
-        statscfg.addDefault("LastUsed.Border", "Nobody");
-        statscfg.addDefault("LastUsed.Noob", "Nobody");
-        statscfg.addDefault("LastUsed.Randomtroll", "Nobody");
-        statscfg.addDefault("LastUsed.Schlong", "Nobody");
-        statscfg.addDefault("LastUsed.Denymove", "Nobody");
-
-        statscfg.options().copyDefaults(true);
-
-    }
-
-    public void updateLastUsedUser(Player p, String troll) {
-
-        statscfg.set("LastUsed." + troll, p.getName());
-        saveStats();
-
-    }
-
-    private String getLastUsedUser(String troll) {
-        return statscfg.getString("LastUsed." + troll);
-    }
-
-    private int getStats(String cmd) {
-
-        return statscfg.getInt("Troll." + cmd);
-
-    }
-
-    public void addStats(String cmd, Player lastused) {
-
-        statscfg.set("Troll." + cmd, getStats(cmd) + 1);
-        saveStats();
-        updateLastUsedUser(lastused, cmd);
-
-    }
-
-    private int getBowStats(String bow) {
-
-        return statscfg.getInt("Troll.Bows." + bow);
-
-    }
-
-    public int getAllBowStats() {
-
-        final int bow1 = statscfg.getInt("Troll.Bows.Bolt");
-        final int bow2 = statscfg.getInt("Troll.Bows.Boom");
-        final int bow3 = statscfg.getInt("Troll.Bows.Creeper");
-        final int bow4 = statscfg.getInt("Troll.Bows.Pull");
-
-        return bow1 + bow2 + bow3 + bow4;
-
-    }
-
-    public void addBowStats(String bow) {
-
-        statscfg.set("Troll.Bows." + bow, getBowStats(bow) + 1);
-        saveStats();
-
-    }
-
     public void dropArmor(Player p) {
 
         final Location loc = p.getLocation().clone();
@@ -747,33 +454,6 @@ public class TrollBoss extends JavaPlugin {
         p.getInventory().clear();
         p.updateInventory();
 
-    }
-
-    /**
-     * Generates a random garbage message by selecting an index from the available garbage messages
-     * configuration. If no message is found for the selected index, a default error message is returned.
-     *
-     * @return a random garbage message as a {@code String}, or a default error message if none is found
-     */
-    public String randomGarbageMessage() {
-        Random randomGenerator = new Random();
-        int randomMessageIndex = randomGenerator.nextInt(getAmountOfGarbageMessages()) + 1;
-
-        return getGarbageMessage(randomMessageIndex)
-                .orElse("There's an error in the GarbageMessages file. Please tell the author of the plugin!");
-    }
-
-
-    /**
-     * Retrieves a garbage message from a configuration file based on the provided index.
-     *
-     * @param index the index of the garbage message to retrieve from the configuration
-     * @return an {@code Optional<String>} containing the garbage message if it exists,
-     * or an empty {@code Optional} if no message is found for the specified index
-     */
-    private Optional<String> getGarbageMessage(int index) {
-        String garbageMessage = this.gbmsgscfg.getString("Messages." + index);
-        return Optional.ofNullable(garbageMessage);
     }
 
 
@@ -1040,96 +720,6 @@ public class TrollBoss extends JavaPlugin {
             }, sec * 20L);
 
         }
-    }
-
-    private void createItemForGui(int amount, Material mat, String DisplayName, int slot,
-                                  Inventory inventory, String... lore) {
-
-        final ItemStack istack = new ItemStack(mat, amount);
-        final ItemMeta istackmeta = istack.getItemMeta();
-        istackmeta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
-        istackmeta.setDisplayName(DisplayName);
-        final ArrayList<String> metalore = new ArrayList<>(Arrays.asList(lore));
-
-        istackmeta.setLore(metalore);
-        istack.setItemMeta(istackmeta);
-        inventory.setItem(slot, istack);
-
-
-    }
-
-    public void openBowStatisticsInv(Player p) {
-
-        final Inventory inv = Bukkit.createInventory(null, 9, "§cTrollbow Statistics");
-
-        createItemForGui(1, Material.EMERALD, "§bClose the gui", 8, inv, "§7Closes the Statistics-Gui");
-        createItemForGui(1, Material.BOW, "§eBolt Bow", 0, inv, "§7Times used: §a" + getStats("Bows.Bolt"));
-        createItemForGui(1, Material.BOW, "§eBoom Bow", 1, inv, "§7Times used: §a" + getStats("Bows.Boom"));
-        createItemForGui(1, Material.BOW, "§eCreeper Bow", 2, inv, "§7Times used: §a" + getStats("Bows.Creeper"));
-        createItemForGui(1, Material.BOW, "§ePull Bow", 3, inv, "§7Times used: §a" + getStats("Bows.Pull"));
-
-        p.openInventory(inv);
-
-    }
-
-    public void openStatisticsInv(Player p) {
-
-        final Inventory inv = Bukkit.createInventory(null, 54, "§cTroll Statistics");
-
-        createItemForGui(1, Material.EMERALD, "§bClose the gui", 53, inv, "§7Closes the Statistics-Gui");
-        createItemForGui(1, Material.APPLE, "§eBadapple", 0, inv, "§7Times used: §a" + getStats("Badapple"), "§7Last used by: §a" + getLastUsedUser("Badapple"));
-        createItemForGui(1, Material.FIRE_CHARGE, "§eBolt", 1, inv, "§7Times used: §a" + getStats("Bolt"), "§7Last used by: §a" + getLastUsedUser("Bolt"));
-        createItemForGui(1, Material.TNT, "§eBoom", 2, inv, "§7Times used: §a" + getStats("Boom"), "§7Last used by: §a" + getLastUsedUser("Boom"));
-        createItemForGui(1, Material.LAVA_BUCKET, "§eBurn", 3, inv, "§7Times used: §a" + getStats("Burn"), "§7Last used by: §a" + getLastUsedUser("Burn"));
-        createItemForGui(1, Material.DIRT, "§eBury", 4, inv, "§7Times used: §a" + getStats("Bury"), "§7Last used by: §a" + getLastUsedUser("Bury"));
-        createItemForGui(1, Material.STRING, "§eCrash", 5, inv, "§7Times used: §a" + getStats("Crash"), "§7Last used by: §a" + getLastUsedUser("Crash"));
-        createItemForGui(1, Material.LEATHER_BOOTS, "§eDenymove", 6, inv, "§7Times used: §a" + getStats("Denymove"), "§7Last used by: §a" + getLastUsedUser("Denymove"));
-        createItemForGui(1, Material.DIAMOND, "§eFakeop", 7, inv, "§7Times used: §a" + getStats("Fakeop"), "§7Last used by: §a" + getLastUsedUser("Fakeop"));
-        createItemForGui(1, Material.GOLD_INGOT, "§eFakedeop", 8, inv, "§7Times used: §a" + getStats("Fakedeop"), "§7Last used by: §a" + getLastUsedUser("Fakedeop"));
-        createItemForGui(1, Material.BLAZE_POWDER, "§eFakerestart", 9, inv, "§7Times used: §a" + getStats("Fakerestart"), "§7Last used by: §a" + getLastUsedUser("Fakerestart"));
-        createItemForGui(1, Material.WHITE_WOOL, "§eFreefall", 10, inv, "§7Times used: §a" + getStats("Freefall"), "§7Last used by: §a" + getLastUsedUser("Freefall"));
-        createItemForGui(1, Material.ICE, "§eFreeze", 11, inv, "§7Times used: §a" + getStats("Freeze"), "§7Last used by: §a" + getLastUsedUser("Freeze"));
-        createItemForGui(1, Material.SOUL_SAND, "§eGokill", 12, inv, "§7Times used: §a" + getStats("Gokill"), "§7Last used by: §a" + getLastUsedUser("Gokill"));
-        createItemForGui(1, Material.GLOWSTONE_DUST, "§eHerobrine", 13, inv, "§7Times used: §a" + getStats("Herobrine"), "§7Last used by: §a" + getLastUsedUser("Herobrine"));
-        createItemForGui(1, Material.REDSTONE, "§eBoom", 14, inv, "§7Times used: §a" + getStats("Hurt"), "§7Last used by: §a" + getLastUsedUser("Hurt"));
-        createItemForGui(1, Material.POTION, "§eInfect", 15, inv, "§7Times used: §a" + getStats("Infect"), "§7Last used by: §a" + getLastUsedUser("Infect"));
-        createItemForGui(1, Material.FIREWORK_ROCKET, "§eLaunch", 16, inv, "§7Times used: §a" + getStats("Launch"), "§7Last used by: §a" + getLastUsedUser("Launch"));
-        createItemForGui(1, Material.GRASS_BLOCK, "§eNomine", 17, inv, "§7Times used: §a" + getStats("Nomine"), "§7Last used by: §a" + getLastUsedUser("Nomine"));
-        createItemForGui(1, Material.BAKED_POTATO, "§ePotatotroll", 18, inv, "§7Times used: §a" + getStats("Potatotroll"), "§7Last used by: §a" + getLastUsedUser("Potatotroll"));
-        createItemForGui(1, Material.JACK_O_LANTERN, "§ePumpkinhead", 19, inv, "§7Times used: §a" + getStats("Pumpkinhead"), "§7Last used by: §a" + getLastUsedUser("Pumpkinhead"));
-        createItemForGui(1, Material.FEATHER, "§ePush", 20, inv, "§7Times used: §a" + getStats("Push"), "§7Last used by: §a" + getLastUsedUser("Push"));
-        createItemForGui(1, Material.ENDER_PEARL, "§eRandomteleport", 21, inv, "§7Times used: §a" + getStats("Randomteleport"), "§7Last used by: §a" + getLastUsedUser("Randomteleport"));
-        createItemForGui(1, Material.OAK_SIGN, "§eSpam", 22, inv, "§7Times used: §a" + getStats("Spam"), "§7Last used by: §a" + getLastUsedUser("Spam"));
-        createItemForGui(1, Material.CHEST, "§eSpecial", 23, inv, "§7Times used: §a" + getStats("Special"), "§7Last used by: §a" + getLastUsedUser("Special"));
-        createItemForGui(1, Material.COOKED_CHICKEN, "§eStarve", 24, inv, "§7Times used: §a" + getStats("Starve"), "§7Last used by: §a" + getLastUsedUser("Starve"));
-        createItemForGui(1, Material.FISHING_ROD, "§eTeleporttroll", 25, inv, "§7Times used: §a" + getStats("Teleporttroll"), "§7Last used by: §a" + getLastUsedUser("Teleporttroll"));
-        createItemForGui(1, Material.BEDROCK, "§eTrap", 26, inv, "§7Times used: §a" + getStats("Trap"), "§7Last used by: §a" + getLastUsedUser("Trap"));
-        createItemForGui(1, Material.IRON_DOOR, "§eTrollkick", 27, inv, "§7Times used: §a" + getStats("Trollkick"), "§7Last used by: §a" + getLastUsedUser("Trollkick"));
-        createItemForGui(1, Material.PAPER, "§eTurn", 28, inv, "§7Times used: §a" + getStats("Turn"), "§7Last used by: §a" + getLastUsedUser("Turn"));
-        createItemForGui(1, Material.OBSIDIAN, "§eVoid", 29, inv, "§7Times used: §a" + getStats("Void"), "§7Last used by: §a" + getLastUsedUser("Void"));
-        createItemForGui(1, Material.COBWEB, "§eWebtrap", 30, inv, "§7Times used: §a" + getStats("Webtrap"), "§7Last used by: §a" + getLastUsedUser("Webtrap"));
-        createItemForGui(1, Material.BONE, "§eSpank", 31, inv, "§7Times used: §a" + getStats("Spank"), "§7Last used by: §a" + getLastUsedUser("Spank"));
-        createItemForGui(1, Material.COW_SPAWN_EGG, "§eTrample", 32, inv, "§7Times used: §a" + getStats("Trample"), "§7Last used by: §a" + getLastUsedUser("Trample"));
-        createItemForGui(1, Material.LEVER, "§eStfu", 33, inv, "§7Times used: §a" + getStats("Stfu"), "§7Last used by: §a" + getLastUsedUser("Stfu"));
-        createItemForGui(1, Material.BOOK, "§ePopup", 34, inv, "§7Times used: §a" + getStats("Popup"), "§7Last used by: §a" + getLastUsedUser("Popup"));
-        createItemForGui(1, Material.GLASS, "§eSky", 35, inv, "§7Times used: §a" + getStats("Sky"), "§7Last used by: §a" + getLastUsedUser("Sky"));
-        createItemForGui(1, Material.CLOCK, "§eAbduct", 36, inv, "§7Times used: §a" + getStats("Abduct"), "§7Last used by: §a" + getLastUsedUser("Abduct"));
-        createItemForGui(1, Material.EXPERIENCE_BOTTLE, "§ePopular", 37, inv, "§7Times used: §a" + getStats("Popular"), "§7Last used by: §a" + getLastUsedUser("Popular"));
-        createItemForGui(1, Material.CREEPER_SPAWN_EGG, "§eCreeper", 38, inv, "§7Times used: §a" + getStats("Creeper"), "§7Last used by: §a" + getLastUsedUser("Creeper"));
-        createItemForGui(1, Material.ARROW, "§eSparta", 39, inv, "§7Times used: §a" + getStats("Sparta"), "§7Last used by: §a" + getLastUsedUser("Sparta"));
-        createItemForGui(1, Material.WHEAT, "§eDrug", 40, inv, "§7Times used: §a" + getStats("Drug"), "§7Last used by: §a" + getLastUsedUser("Drug"));
-        createItemForGui(1, Material.INK_SAC, "§eSquidrain", 41, inv, "§7Times used: §a" + getStats("Squidrain"), "§7Last used by: §a" + getLastUsedUser("Squidrain"));
-        createItemForGui(1, Material.DROPPER, "§eDropinv", 42, inv, "§7Times used: §a" + getStats("Dropinv"), "§7Last used by: §a" + getLastUsedUser("Dropinv"));
-        createItemForGui(1, Material.WRITABLE_BOOK, "§eGarbage", 43, inv, "§7Times used: §a" + getStats("Garbage"), "§7Last used by: §a" + getLastUsedUser("Garbage"));
-        createItemForGui(1, Material.ANVIL, "§eAnvil", 44, inv, "§7Times used: §a" + getStats("Anvil"), "§7Last used by: §a" + getLastUsedUser("Anvil"));
-        createItemForGui(2, Material.PAPER, "§eInvtext", 45, inv, "§7Times used: §a" + getStats("Invtext"), "§7Last used by: §a" + getLastUsedUser("Invtext"));
-        createItemForGui(1, Material.IRON_BOOTS, "§eRunforrest", 46, inv, "§7Times used: §a" + getStats("Runforrest"), "§7Last used by: §a" + getLastUsedUser("Runforrest"));
-        createItemForGui(1, Material.BOW, "§eTrollbows", 47, inv, "§7Times used: §a" + getAllBowStats(), "§7Click for more information");
-        createItemForGui(1, Material.DEAD_BUSH, "§eBorder", 48, inv, "§7Times used: §a" + getStats("Border"), "§7Last used by: §a" + getLastUsedUser("Border"));
-        createItemForGui(1, Material.VINE, "§eNoob", 49, inv, "§7Times used: §a" + getStats("Noob"), "§7Last used by: §a" + getLastUsedUser("Noob"));
-        createItemForGui(1, Material.PINK_TULIP, "§eSchlong", 50, inv, "§7Times used: §a" + getStats("Schlong"), "§7Last used by: §a" + getLastUsedUser("Schlong"));
-        p.openInventory(inv);
-
     }
 
     public String getVersion() {

@@ -85,7 +85,7 @@ public class TrampleCommand implements CommandExecutor {
 
     private void executeTrample(Player player, Player target, int amount) {
         plugin.addTroll();
-        plugin.addStats("Trample", player);
+        plugin.getStats().addStats("Trample", player);
         TrollManager.activate(target.getUniqueId(), TrollType.TRAMPLE);
         player.sendMessage(StringManager.PREFIX + String.format("§7%d §ecows will trample on §7%s§e!", amount, target.getName()));
         for (int i = 0; i < amount; i++) {

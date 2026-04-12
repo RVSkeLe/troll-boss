@@ -56,7 +56,7 @@ public class PopupCommand implements CommandExecutor {
 
     private void handleAllPlayers(Player player) {
         this.plugin.addTroll();
-        this.plugin.addStats("Popup", player);
+        plugin.getStats().addStats("Popup", player);
         player.sendMessage(StringManager.PREFIX + "§eYou opened the inventory of everyone!");
 
         Bukkit.getOnlinePlayers().stream()
@@ -74,7 +74,7 @@ public class PopupCommand implements CommandExecutor {
             target.openInventory(target.getInventory());
             player.sendMessage(StringManager.PREFIX + "§eOpened the inventory of §7" + target.getName() + "§e!");
             this.plugin.addTroll();
-            this.plugin.addStats("Popup", player);
+            plugin.getStats().addStats("Popup", player);
         } else {
             player.sendMessage(StringManager.BYPASS);
         }

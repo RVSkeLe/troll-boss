@@ -35,7 +35,7 @@ public class SchlongManager {
 
         TrollManager.activate(target.getUniqueId(), TrollType.SCHLONG);
         TrollBoss.getInstance().addTroll();
-        TrollBoss.getInstance().addStats("Schlong", sender);
+        TrollBoss.getInstance().getStats().addStats("Schlong", sender);
 
         structure.generateAndTeleportToBuild();
     }

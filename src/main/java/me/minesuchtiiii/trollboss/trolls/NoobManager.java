@@ -39,7 +39,7 @@ public class NoobManager {
 
     private void addStats(Player target) {
         TrollBoss.getInstance().addTroll();
-        TrollBoss.getInstance().addStats("Noob", target);
+        TrollBoss.getInstance().getStats().addStats("Noob", target);
     }
 
     public static boolean canNoob() {

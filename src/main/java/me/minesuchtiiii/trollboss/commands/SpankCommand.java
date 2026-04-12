@@ -63,7 +63,7 @@ public class SpankCommand implements CommandExecutor {
         }
 
         plugin.addTroll();
-        plugin.addStats("Spank", sender);
+        plugin.getStats().addStats("Spank", sender);
 
         target.sendMessage(SPANK_MESSAGE);
         target.setHealth(Math.max(0, target.getHealth() - SPANK_DAMAGE));
@@ -74,7 +74,7 @@ public class SpankCommand implements CommandExecutor {
     private void spankAllPlayers(Player sender) {
 
         plugin.addTroll();
-        plugin.addStats("Spank", sender);
+        plugin.getStats().addStats("Spank", sender);
         sender.sendMessage(StringManager.PREFIX + "§eYou spanked everyone, except the players who can bypass it!");
 
         Bukkit.getOnlinePlayers().stream().filter(player -> !player.equals(sender) && plugin.canBeTrolled(player)).forEach(player -> {

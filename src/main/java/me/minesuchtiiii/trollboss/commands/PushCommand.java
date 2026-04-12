@@ -36,7 +36,7 @@ public class PushCommand implements CommandExecutor {
                 applyPushEffect(player);
                 player.sendMessage(StringManager.PREFIX + "§7You pushed yourself!");
                 plugin.addTroll();
-                plugin.addStats("Push", player);
+                plugin.getStats().addStats("Push", player);
                 break;
 
             case 1:
@@ -72,6 +72,6 @@ public class PushCommand implements CommandExecutor {
         applyPushEffect(target);
         player.sendMessage(StringManager.PREFIX + "§eYou pushed §7" + target.getName() + "§e!");
         plugin.addTroll();
-        plugin.addStats("Push", player);
+        plugin.getStats().addStats("Push", player);
     }
 }

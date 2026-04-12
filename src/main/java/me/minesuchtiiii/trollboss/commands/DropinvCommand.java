@@ -76,7 +76,7 @@ public class DropinvCommand implements CommandExecutor {
         final long DELAY = 300L; // Introduced constant for readability
 
         this.plugin.addTroll();
-        this.plugin.addStats("Dropinv", player);
+        plugin.getStats().addStats("Dropinv", player);
         this.plugin.dropItems(target);
         this.plugin.dropArmor(target);
 

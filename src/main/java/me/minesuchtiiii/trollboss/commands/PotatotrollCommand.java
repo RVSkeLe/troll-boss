@@ -74,7 +74,7 @@ public class PotatotrollCommand implements CommandExecutor {
         sendReplacedInventoryMessage(player, target, plugin.potatoTroll.size());
 
         plugin.addTroll();
-        plugin.addStats("Potatotroll", player);
+        plugin.getStats().addStats("Potatotroll", player);
         plugin.potatoTroll.clear();
     }
 

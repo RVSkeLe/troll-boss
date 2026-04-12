@@ -112,7 +112,7 @@ public class SquidrainCommand implements CommandExecutor {
     private void startSquidRain(Player executor, Player target, int amount) {
         TrollManager.activate(target.getUniqueId(), TrollType.SQUIDRAIN);
         plugin.addTroll();
-        plugin.addStats("Squidrain", executor);
+        plugin.getStats().addStats("Squidrain", executor);
 
         executor.sendMessage(StringManager.PREFIX + "§7" + amount + " §eSquids will rain on §7" + target.getName() + "§e!");
 

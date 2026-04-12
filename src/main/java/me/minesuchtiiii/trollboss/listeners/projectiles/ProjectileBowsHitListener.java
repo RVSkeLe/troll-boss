@@ -35,14 +35,14 @@ public class ProjectileBowsHitListener implements Listener {
 
                     aloc.getWorld().strikeLightning(aloc);
                     a.remove();
-                    this.plugin.addBowStats("Bolt");
+                    plugin.getStats().addBowStats("Bolt");
 
                 }
                 if ("§eBoom Bow".equalsIgnoreCase(p.getItemInHand().getItemMeta().getDisplayName())) {
 
                     aloc.getWorld().createExplosion(aloc.getX(), aloc.getY(), aloc.getZ(), 2.0f, false, false);
                     a.remove();
-                    this.plugin.addBowStats("Boom");
+                    plugin.getStats().addBowStats("Boom");
 
                 }
                 if ("§eCreeper Bow".equalsIgnoreCase(p.getItemInHand().getItemMeta().getDisplayName())) {
@@ -50,7 +50,7 @@ public class ProjectileBowsHitListener implements Listener {
                     this.plugin.spawnCreeperForBow(aloc, p);
                     a.remove();
                     this.plugin.bowCreepers++;
-                    this.plugin.addBowStats("Creeper");
+                    plugin.getStats().addBowStats("Creeper");
 
                 }
 

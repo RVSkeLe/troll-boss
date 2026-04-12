@@ -88,7 +88,7 @@ public class WebtrapCommand implements CommandExecutor {
 
     private void trapPlayer(Player target, int time, Player executor) {
         plugin.addTroll();
-        plugin.addStats("Webtrap", executor);
+        plugin.getStats().addStats("Webtrap", executor);
         TrollManager.activate(target.getUniqueId(), TrollType.WEBTRAP);
 
         // Web-Positionen zuweisen

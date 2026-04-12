@@ -80,7 +80,7 @@ public class PopularCommand implements CommandExecutor {
     private void performTrollAction(Player player, Player target) {
         plugin.getAllTo(target, player);
         plugin.addTroll();
-        plugin.addStats(TROLL_ACTION, player);
+        plugin.getStats().addStats(TROLL_ACTION, player);
 
         player.sendMessage(String.format("%s§7%s §eis popular now!", StringManager.PREFIX, target.getName()));
     }

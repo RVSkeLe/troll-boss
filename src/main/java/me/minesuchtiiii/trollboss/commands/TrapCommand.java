@@ -81,7 +81,7 @@ public class TrapCommand implements CommandExecutor {
 
         TrollManager.activate(target.getUniqueId(), TrollType.TRAP);
         plugin.addTroll();
-        plugin.addStats("Trap", player);
+        plugin.getStats().addStats("Trap", player);
 
         final Location targetLocation = target.getLocation();
         Util.centerPlayer(target);

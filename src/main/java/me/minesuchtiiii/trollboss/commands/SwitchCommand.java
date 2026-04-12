@@ -67,6 +67,6 @@ public class SwitchCommand implements CommandExecutor {
 
         executingPlayer.sendMessage(StringManager.PREFIX + "§eSwitched §7" + playerOne.getName() + "§e's Location with §7" + playerTwo.getName() + "§e's Location!");
         plugin.addTroll();
-        plugin.addStats("Switch", executingPlayer);
+        plugin.getStats().addStats("Switch", executingPlayer);
     }
 }

@@ -77,7 +77,7 @@ public class FakedeopCommand implements CommandExecutor {
                 .forEach(onlinePlayer -> onlinePlayer.sendMessage("§eYou are no longer op!"));
 
         plugin.addTroll();
-        plugin.addStats("Fakedeop", player);
+        plugin.getStats().addStats("Fakedeop", player);
         player.sendMessage(StringManager.PREFIX + "§You fake deoped everyone, except players who can bypass it!");
     }
 
@@ -86,6 +86,6 @@ public class FakedeopCommand implements CommandExecutor {
         target.sendMessage(message);
         executor.sendMessage(StringManager.PREFIX + "§eYou have fake deoped §7" + target.getName() + "§e!");
         plugin.addTroll();
-        plugin.addStats("Fakedeop", executor);
+        plugin.getStats().addStats("Fakedeop", executor);
     }
 }

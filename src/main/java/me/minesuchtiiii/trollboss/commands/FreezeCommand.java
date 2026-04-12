@@ -39,7 +39,7 @@ public class FreezeCommand implements CommandExecutor {
             applyFreezeEffects(player);
             player.sendMessage(StringManager.PREFIX + "§7You've frozen yourself!");
             plugin.addTroll();
-            plugin.addStats("Freeze", player);
+            plugin.getStats().addStats("Freeze", player);
         } else if (args.length == 1) {
             Player targetPlayer = Bukkit.getPlayer(args[0]);
             if (targetPlayer == null) {
@@ -55,7 +55,7 @@ public class FreezeCommand implements CommandExecutor {
             applyFreezeEffects(targetPlayer);
             player.sendMessage(StringManager.PREFIX + "§eYou've frozen §7" + targetPlayer.getName() + "§e!");
             plugin.addTroll();
-            plugin.addStats("Freeze", player);
+            plugin.getStats().addStats("Freeze", player);
         } else {
             player.sendMessage(StringManager.MUCHARGS);
         }

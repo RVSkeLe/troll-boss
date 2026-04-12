@@ -84,7 +84,7 @@ public class AbductCommand implements CommandExecutor {
         plugin.abductedCachedLocations.put(target.getUniqueId(), location);
 
         plugin.addTroll();
-        plugin.addStats("Abduct", player);
+        plugin.getStats().addStats("Abduct", player);
 
         player.sendMessage(StringManager.PREFIX + "§eAbducting §7" + target.getName() + "§e!");
         target.sendMessage("§eYou're being abducted by aliens!");

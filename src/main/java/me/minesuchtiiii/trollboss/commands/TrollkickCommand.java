@@ -60,7 +60,7 @@ public class TrollkickCommand implements CommandExecutor {
     private void handleKick(Player player, Player target) {
 
         plugin.addTroll();
-        plugin.addStats("Trollkick", player);
+        plugin.getStats().addStats("Trollkick", player);
         TrollManager.activate(target.getUniqueId(), TrollType.TROLLKICK);
         target.kickPlayer(KICK_MESSAGE);
         TrollManager.deactivate(target.getUniqueId(), TrollType.TROLLKICK);

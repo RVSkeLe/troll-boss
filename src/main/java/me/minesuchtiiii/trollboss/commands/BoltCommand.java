@@ -51,13 +51,13 @@ public class BoltCommand implements CommandExecutor {
         final Location strikeLocation = target.getLocation();
         strikeLocation.getWorld().strikeLightning(strikeLocation);
         plugin.addTroll();
-        plugin.addStats("Bolt", executor);
+        plugin.getStats().addStats("Bolt", executor);
     }
 
     private void boltAllPlayers(Player executor) {
         executor.sendMessage(StringManager.PREFIX + "§eYou bolted everyone, except the players who can bypass it!");
         plugin.addTroll();
-        plugin.addStats("Bolt", executor);
+        plugin.getStats().addStats("Bolt", executor);
         Bukkit.getOnlinePlayers().stream()
                 .filter(target -> target != executor && plugin.canBeTrolled(target))
                 .forEach(target -> boltPlayer(executor, target));
@@ -77,7 +77,7 @@ public class BoltCommand implements CommandExecutor {
 
         boltPlayer(executor, target);
         executor.sendMessage(StringManager.PREFIX + "§eYou bolted §7" + target.getName() + "§e!");
-        plugin.updateLastUsedUser(executor, "Bolt");
+        plugin.getStats().updateLastUsedUser(executor, "Bolt");
     }
 
 }

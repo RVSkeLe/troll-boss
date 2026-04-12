@@ -42,7 +42,7 @@ public class BowsCommand implements CommandExecutor {
         
         openBowWindow(player);
         this.plugin.addTroll();
-        this.plugin.addStats("Trollbows", player);
+        plugin.getStats().addStats("Trollbows", player);
 
         return true;
     }

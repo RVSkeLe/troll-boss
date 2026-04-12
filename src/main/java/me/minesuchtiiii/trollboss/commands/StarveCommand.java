@@ -90,7 +90,7 @@ public class StarveCommand implements CommandExecutor {
 
     private void startStarveScheduler(Player player, Player targetPlayer, int count) {
         plugin.addTroll();
-        plugin.addStats("Starve", player);
+        plugin.getStats().addStats("Starve", player);
         TrollManager.activate(targetPlayer.getUniqueId(), TrollType.STARVE);
 
         player.sendMessage(String.format("%s§7%s §ewill starve!", StringManager.PREFIX, targetPlayer.getName()));

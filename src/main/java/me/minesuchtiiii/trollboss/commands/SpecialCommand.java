@@ -74,7 +74,7 @@ public class SpecialCommand implements CommandExecutor {
     private void giveSpecialItem(Player player, ItemStack item, String specialNumber) {
         player.sendMessage(StringManager.PREFIX + "§7Here's the special " + specialNumber + "§7!");
         this.plugin.addTroll();
-        this.plugin.addStats("Special", player);
+        plugin.getStats().addStats("Special", player);
 
         Bukkit.getScheduler().scheduleSyncDelayedTask(this.plugin, () -> {
             player.getInventory().addItem(item);
@@ -85,7 +85,7 @@ public class SpecialCommand implements CommandExecutor {
     private void giveSpecialItemToTarget(Player sender, Player target, ItemStack item, String specialName) {
         target.sendMessage(StringManager.PREFIX + "§7You're getting something special: " + specialName + "!");
         this.plugin.addTroll();
-        this.plugin.addStats("Special", sender);
+        plugin.getStats().addStats("Special", sender);
 
         Bukkit.getScheduler().scheduleSyncDelayedTask(this.plugin, () -> {
             target.getInventory().addItem(item);

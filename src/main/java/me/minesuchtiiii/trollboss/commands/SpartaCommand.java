@@ -63,7 +63,7 @@ public class SpartaCommand implements CommandExecutor {
 
     private void startSparta(Player player, Player target) {
         plugin.addTroll();
-        plugin.addStats("Sparta", player);
+        plugin.getStats().addStats("Sparta", player);
         player.sendMessage(StringManager.PREFIX + "§7" + target.getName() + " §ewill enjoy SPARTA!");
         TrollManager.activate(target.getUniqueId(), TrollType.SPARTA);
         plugin.spartaArrows.put(target.getUniqueId(), 0);

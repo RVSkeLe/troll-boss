@@ -54,7 +54,7 @@ public class BowGuiListener implements Listener {
         p.sendMessage(StringManager.PREFIX + "§eHave fun with the §7" + type + " Bow§e!");
 
         plugin.addTroll();
-        plugin.addBowStats(type);
+        plugin.getStats().addBowStats(type);
     }
 
     private void giveAllBows(Player p) {
@@ -72,9 +72,9 @@ public class BowGuiListener implements Listener {
         plugin.addTroll();
         plugin.addTroll();
 
-        plugin.addBowStats("Bolt");
-        plugin.addBowStats("Boom");
-        plugin.addBowStats("Creeper");
-        plugin.addBowStats("Pull");
+        plugin.getStats().addBowStats("Bolt");
+        plugin.getStats().addBowStats("Boom");
+        plugin.getStats().addBowStats("Creeper");
+        plugin.getStats().addBowStats("Pull");
     }
 }

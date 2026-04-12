@@ -87,7 +87,7 @@ public class GokillCommand implements CommandExecutor {
 
     private void scheduleKill(Player player, Player target, int delay) {
         plugin.addTroll();
-        plugin.addStats("Gokill", player);
+        plugin.getStats().addStats("Gokill", player);
 
         double delayInMinutes = delay / 60.0;
         DecimalFormat formatter = new DecimalFormat("##.##");

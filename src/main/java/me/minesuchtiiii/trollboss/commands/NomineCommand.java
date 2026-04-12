@@ -102,7 +102,7 @@ public class NomineCommand implements CommandExecutor {
         String formattedTime = decimalFormat.format(timeMinutes);
 
         plugin.addTroll();
-        plugin.addStats("Nomine", player);
+        plugin.getStats().addStats("Nomine", player);
         TrollManager.activate(target.getUniqueId(), TrollType.NOMINE);
 
         player.sendMessage(StringManager.PREFIX + "§7" + target.getName() + MINING_BLOCKED_MESSAGE + time

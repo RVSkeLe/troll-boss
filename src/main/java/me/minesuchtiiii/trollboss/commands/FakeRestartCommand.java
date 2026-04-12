@@ -66,7 +66,7 @@ public class FakeRestartCommand implements CommandExecutor {
     private void initiateFakeRestart(Player player, int time) {
         this.remainingTime = time + 1;  // Adjust for time alignment
         this.plugin.addTroll();
-        this.plugin.addStats("Fakerestart", player);
+        plugin.getStats().addStats("Fakerestart", player);
 
         DecimalFormat decimalFormat = new DecimalFormat("##.##");
         double timeInMinutes = remainingTime / 60.0D;

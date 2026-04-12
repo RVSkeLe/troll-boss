@@ -79,7 +79,7 @@ public class GarbageCommand implements CommandExecutor {
     private void sendToggleMessage(Player executor, Player target, boolean activated) {
         String status = activated ? "Activated" : "Deactivated";
         plugin.addTroll();
-        plugin.addStats("Garbage", executor);
+        plugin.getStats().addStats("Garbage", executor);
         executor.sendMessage(StringManager.PREFIX + "§e" + status + " garbage mode for §7" + target.getName() + "§e!");
     }
 }

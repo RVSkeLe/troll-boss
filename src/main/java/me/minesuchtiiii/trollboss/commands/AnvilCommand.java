@@ -89,7 +89,7 @@ public class AnvilCommand implements CommandExecutor {
         fallingBlock.setMaxDamage(100);
 
         this.plugin.addTroll();
-        this.plugin.addStats("Anvil", player);
+        plugin.getStats().addStats("Anvil", player);
         Bukkit.getScheduler().scheduleSyncDelayedTask(TrollBoss.getInstance(), () -> {
             TrollManager.deactivate(target.getUniqueId(), TrollType.ANVIL);
         }, 80L);

@@ -54,7 +54,7 @@ public class RandomtrollCommand implements CommandExecutor {
     private void executeRandomTroll(Player player, Player target) {
         player.sendMessage(PREFIX + "§ePicking a random troll for player §7" + target.getName() + "§e...");
         plugin.addTroll();
-        plugin.addStats("Randomtroll", player);
+        plugin.getStats().addStats("Randomtroll", player);
 
         int randomTroll = plugin.createRandom(0, trollCommands.size());
         Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, () -> {

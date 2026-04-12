@@ -68,7 +68,7 @@ public class CreeperCommand implements CommandExecutor {
         // Execute creeper spawn logic
         this.plugin.spawnCreepers(target, target.getLocation(), DEFAULT_CREEPER_AMOUNT);
         this.plugin.addTroll();
-        this.plugin.addStats("Creeper", executor);
+        plugin.getStats().addStats("Creeper", executor);
         executor.sendMessage(StringManager.PREFIX + "§eSpawned §7" + DEFAULT_CREEPER_AMOUNT + " §ecreeper at §7" + target.getName() + "§e's location!");
         this.plugin.creep = true;
         this.plugin.creepers = DEFAULT_CREEPER_AMOUNT;

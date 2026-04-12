@@ -62,6 +62,6 @@ public class HerobrineCommand implements CommandExecutor {
             target.sendMessage(REMOVE_HEROBRINE);
         }
         plugin.addTroll();
-        plugin.addStats("Herobrine", executor);
+        plugin.getStats().addStats("Herobrine", executor);
     }
 }
