@@ -15,10 +15,15 @@ import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
 import java.text.DecimalFormat;
+import java.util.HashMap;
 
 public class TrapCommand implements CommandExecutor {
     private final TrollBoss plugin;
     int max = 3600;
+
+    public HashMap<Integer, Location> blocks = new HashMap<>();
+    public HashMap<Integer, Location> oldBlocksLocation = new HashMap<>();
+    public HashMap<Integer, Material> numbersmat = new HashMap<>();
 
     public TrapCommand(TrollBoss plugin) {
         this.plugin = plugin;
@@ -113,29 +118,29 @@ public class TrapCommand implements CommandExecutor {
             Location blockLocation = trapBlockPositions[i];
             Material originalMaterial = blockLocation.getWorld().getBlockAt(blockLocation).getType();
 
-            plugin.oldBlocksLocation.put(i, blockLocation);
-            plugin.numbersmat.put(i, originalMaterial);
+            this.oldBlocksLocation.put(i, blockLocation);
+            this.numbersmat.put(i, originalMaterial);
 
             blockLocation.getWorld().getBlockAt(blockLocation).setType(Material.GLASS);
-            plugin.blocks.put(i + 1, blockLocation);
+            this.blocks.put(i + 1, blockLocation);
         }
     }
 
     private void releaseTrap(Player player) {
         for (int i = 1; i <= 10; i++) {
-            Location blockLocation = plugin.blocks.get(i);
+            Location blockLocation = this.blocks.get(i);
             blockLocation.getWorld().getBlockAt(blockLocation).setType(Material.AIR);
         }
 
         for (int i = 0; i < 10; i++) {
-            Location oldBlockLocation = plugin.oldBlocksLocation.get(i);
-            Material originalMaterial = plugin.numbersmat.get(i);
+            Location oldBlockLocation = this.oldBlocksLocation.get(i);
+            Material originalMaterial = this.numbersmat.get(i);
             oldBlockLocation.getWorld().getBlockAt(oldBlockLocation).setType(originalMaterial);
         }
 
-        plugin.blocks.clear();
-        plugin.oldBlocksLocation.clear();
-        plugin.numbersmat.clear();
+        this.blocks.clear();
+        this.oldBlocksLocation.clear();
+        this.numbersmat.clear();
         TrollManager.deactivate(player.getUniqueId(), TrollType.TRAP);
     }
 }

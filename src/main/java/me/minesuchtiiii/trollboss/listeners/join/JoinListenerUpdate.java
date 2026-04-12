@@ -11,6 +11,7 @@ import me.minesuchtiiii.trollboss.TrollBoss;
 
 public class JoinListenerUpdate implements Listener {
 	private final TrollBoss plugin;
+	private static boolean worked = false; // what lol
 
 	public JoinListenerUpdate(TrollBoss plugin) {
 		this.plugin = plugin;
@@ -20,15 +21,14 @@ public class JoinListenerUpdate implements Listener {
 	public void onJoin(PlayerJoinEvent e) {
 		final Player p = e.getPlayer();
 
-		if (this.plugin.worked) {
-			if (p.isOp()) {
-				Bukkit.getScheduler().scheduleSyncDelayedTask(this.plugin, () -> {
+		if (!worked) return;
+		if (!p.isOp()) return;
 
-					p.sendMessage(StringManager.PREFIX + "§3An update of §cTroll §3has been downloaded successfully!");
-					JoinListenerUpdate.this.plugin.worked = false;
+		Bukkit.getScheduler().scheduleSyncDelayedTask(this.plugin, () -> {
 
-				}, 40L);
-			}
-		}
+			p.sendMessage(StringManager.PREFIX + "§3An update of §cTroll §3has been downloaded successfully!");
+			worked = false;
+
+		}, 40L);
 	}
 }

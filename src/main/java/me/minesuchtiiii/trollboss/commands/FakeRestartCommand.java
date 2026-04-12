@@ -18,6 +18,7 @@ import java.util.stream.Collectors;
 
 public class FakeRestartCommand implements CommandExecutor {
     private static final int MAX_TIME = 120;
+    private static boolean isRestarting = false;
     private final TrollBoss plugin;
     private int counter;
     private int remainingTime;
@@ -48,7 +49,7 @@ public class FakeRestartCommand implements CommandExecutor {
             return true;
         }
 
-        if (plugin.isRestarting) {
+        if (isRestarting) {
             player.sendMessage(StringManager.PREFIX + "§cYou can't do this right now!");
             return true;
         }
@@ -77,7 +78,7 @@ public class FakeRestartCommand implements CommandExecutor {
         double timeInMinutes = remainingTime / 60.0D;
 
         player.sendMessage(StringManager.PREFIX + "§eServer will fakerestart in §7" + (remainingTime - 1) + " §eseconds! §c(~" + decimalFormat.format(timeInMinutes) + " minutes)");
-        plugin.isRestarting = true;
+        isRestarting = true;
 
         this.counter = Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, () -> performCountdown(player), 20L, 20L);
     }
@@ -91,7 +92,7 @@ public class FakeRestartCommand implements CommandExecutor {
             Bukkit.broadcastMessage("§7§l[§c§lServer§7§l] §r§6Server is restarting...");
             Bukkit.getScheduler().cancelTask(counter);
             kickSchedule(executor);
-            plugin.isRestarting = false;
+            isRestarting = false;
         }
     }
 

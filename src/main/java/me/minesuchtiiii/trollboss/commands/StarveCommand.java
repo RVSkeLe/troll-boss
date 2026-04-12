@@ -17,6 +17,7 @@ public class StarveCommand implements CommandExecutor {
     private static final int MAX_COUNT = 20;
     private final TrollBoss plugin;
     private int foodScheduler;
+    public int lvl = 0;
 
     public StarveCommand(TrollBoss plugin) {
         this.plugin = plugin;
@@ -99,10 +100,10 @@ public class StarveCommand implements CommandExecutor {
         foodScheduler = Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, () -> {
             int currentFoodLevel = targetPlayer.getFoodLevel();
 
-            if (plugin.lvl < count) {
+            if (lvl < count) {
                 if (currentFoodLevel > 0) {
                     targetPlayer.setFoodLevel(currentFoodLevel - 1);
-                    plugin.lvl++;
+                    lvl++;
                 } else {
                     cancelStarvation(targetPlayer);
                 }
@@ -115,6 +116,6 @@ public class StarveCommand implements CommandExecutor {
     private void cancelStarvation(Player targetPlayer) {
         Bukkit.getScheduler().cancelTask(foodScheduler);
         TrollManager.deactivate(targetPlayer.getUniqueId(), TrollType.STARVE);
-        plugin.lvl = 0;
+        lvl = 0;
     }
 }

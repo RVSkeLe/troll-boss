@@ -15,6 +15,7 @@ import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
 import java.text.DecimalFormat;
+import java.util.HashMap;
 
 public class WebtrapCommand implements CommandExecutor {
 
@@ -23,6 +24,10 @@ public class WebtrapCommand implements CommandExecutor {
     private static final String INVALID_NUMBER = StringManager.PREFIX + "§cNumber has to be bigger than 0!";
     private static final String MAX_EXCEEDED = StringManager.PREFIX + "§cCan't use that number, max allowed is " + MAX_TIME + "!";
     private static final DecimalFormat DECIMAL_FORMAT = new DecimalFormat("##.##");
+
+    public HashMap<Integer, Location> altblockloc = new HashMap<>();
+    public HashMap<Integer, Location> block = new HashMap<>();
+    public HashMap<Integer, Material> zahlmat = new HashMap<>();
 
     private final TrollBoss plugin;
 
@@ -117,25 +122,25 @@ public class WebtrapCommand implements CommandExecutor {
     private void saveAndSetBlocks(Location[] locations) {
         for (int i = 0; i < locations.length; i++) {
             Location loc = locations[i];
-            plugin.altblockloc.put(i, loc);
-            plugin.zahlmat.put(i, loc.getBlock().getType());
+            this.altblockloc.put(i, loc);
+            this.zahlmat.put(i, loc.getBlock().getType());
             loc.getBlock().setType(Material.COBWEB);
-            plugin.block.put(i + 1, loc);
+            this.block.put(i + 1, loc);
         }
     }
 
     private void removeWebtrap(Player target) {
         TrollManager.deactivate(target.getUniqueId(), TrollType.WEBTRAP);
-        for (int i = 1; i <= plugin.block.size(); i++) {
-            Location block = plugin.block.get(i);
+        for (int i = 1; i <= this.block.size(); i++) {
+            Location block = this.block.get(i);
             block.getBlock().setType(Material.AIR);
         }
-        for (int i = 0; i < plugin.altblockloc.size(); i++) {
-            Location oldBlock = plugin.altblockloc.get(i);
-            oldBlock.getBlock().setType(plugin.zahlmat.get(i));
+        for (int i = 0; i < this.altblockloc.size(); i++) {
+            Location oldBlock = this.altblockloc.get(i);
+            oldBlock.getBlock().setType(this.zahlmat.get(i));
         }
-        plugin.altblockloc.clear();
-        plugin.block.clear();
-        plugin.zahlmat.clear();
+        this.altblockloc.clear();
+        this.block.clear();
+        this.zahlmat.clear();
     }
 }

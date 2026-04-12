@@ -26,26 +26,15 @@ public class TrollBoss extends JavaPlugin {
     private static final int METRICS_ID = 15941;
     private static TrollBoss INSTANCE;
     public final Map<UUID, List<Location>> ufoBlockLocations = new HashMap<>();
-    public ArrayList<Integer> potatoTroll = new ArrayList<>();
-    public HashMap<Integer, Location> altblockloc = new HashMap<>();
-    public HashMap<Integer, Location> block = new HashMap<>();
-    public HashMap<Integer, Location> blockloc = new HashMap<>();
-    public HashMap<Integer, Location> blocks = new HashMap<>();
-    public HashMap<Integer, Location> oldBlocksLocation = new HashMap<>();
-    public HashMap<Integer, Material> blockmat = new HashMap<>();
-    public HashMap<Integer, Material> numbersmat = new HashMap<>();
-    public HashMap<Integer, Material> zahlmat = new HashMap<>();
+
     public HashMap<String, Location> skymap = new HashMap<>();
     public HashMap<UUID, Integer> spartaArrows = new HashMap<>();
     public HashMap<UUID, Location> abductedCachedLocations = new HashMap<>();
     public HashMap<UUID, UUID> trolling = new HashMap<>();
     public boolean c;
     public boolean creep;
-    public boolean isRestarting = false;
-    public boolean worked = false;
     public int bowCreepers = 0;
     public int creepers = 0;
-    public int lvl = 0;
     public int spartaTask;
     public int time = 14;
     public int trollBuffer = 0;

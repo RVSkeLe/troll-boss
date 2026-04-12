@@ -14,6 +14,8 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.HashMap;
+
 public class VoidCommand implements CommandExecutor {
     private static final long BLOCK_BREAK_DELAY = 4L; // Delay for breaking blocks
     private static final long BLOCK_REBUILD_DELAY = 2L; // Delay for rebuilding blocks
@@ -22,6 +24,9 @@ public class VoidCommand implements CommandExecutor {
     private int voidRebuildScheduler;
     private int blockBreakCounter = 0;
     private int blockRebuildCounter = 0;
+
+    public HashMap<Integer, Location> blockloc = new HashMap<>();
+    public HashMap<Integer, Material> blockmat = new HashMap<>();
 
     public VoidCommand(TrollBoss plugin) {
         this.plugin = plugin;
@@ -104,8 +109,8 @@ public class VoidCommand implements CommandExecutor {
     private void saveOriginalBlocks(Location location, int totalBlocks) {
         for (int index = 0; index < totalBlocks; index++) {
             Location blockLocation = location.getBlock().getRelative(0, -index, 0).getLocation();
-            this.plugin.blockloc.put(index, blockLocation);
-            this.plugin.blockmat.put(index, blockLocation.getWorld().getBlockAt(blockLocation).getType());
+            this.blockloc.put(index, blockLocation);
+            this.blockmat.put(index, blockLocation.getWorld().getBlockAt(blockLocation).getType());
         }
     }
 
@@ -125,8 +130,8 @@ public class VoidCommand implements CommandExecutor {
     private void scheduleBlockRebuilding(Player target, int totalBlocks) {
         this.voidRebuildScheduler = Bukkit.getScheduler().scheduleSyncRepeatingTask(this.plugin, () -> {
             if (blockRebuildCounter < totalBlocks) {
-                Location blockLocation = this.plugin.blockloc.get(blockRebuildCounter);
-                blockLocation.getWorld().getBlockAt(blockLocation).setType(this.plugin.blockmat.get(blockRebuildCounter));
+                Location blockLocation = this.blockloc.get(blockRebuildCounter);
+                blockLocation.getWorld().getBlockAt(blockLocation).setType(this.blockmat.get(blockRebuildCounter));
                 blockRebuildCounter++;
             } else {
                 cleanupAfterRebuild(target);
@@ -135,8 +140,8 @@ public class VoidCommand implements CommandExecutor {
     }
 
     private void cleanupAfterRebuild(Player target) {
-        this.plugin.blockloc.clear();
-        this.plugin.blockmat.clear();
+        this.blockloc.clear();
+        this.blockmat.clear();
         TrollManager.deactivate(target.getUniqueId(), TrollType.VOID);
         Bukkit.getScheduler().cancelTask(voidRebuildScheduler);
         blockRebuildCounter = 0;

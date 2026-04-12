@@ -13,9 +13,12 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
+
 public class PotatotrollCommand implements CommandExecutor {
     private final TrollBoss plugin;
-    boolean emp;
+
+    public ArrayList<Integer> potatoTroll = new ArrayList<>();
 
     public PotatotrollCommand(TrollBoss plugin) {
         this.plugin = plugin;
@@ -69,21 +72,21 @@ public class PotatotrollCommand implements CommandExecutor {
 
         replaceInventoryWithPotatoes(target);
 
-        sendReplacedInventoryMessage(player, target, plugin.potatoTroll.size());
+        sendReplacedInventoryMessage(player, target, this.potatoTroll.size());
 
         plugin.addTroll();
         plugin.getStats().addStats("Potatotroll", player);
-        plugin.potatoTroll.clear();
+        this.potatoTroll.clear();
     }
 
     private void replaceInventoryWithPotatoes(Player target) {
         for (int i = 0; i < 36; i++) {
             if (target.getInventory().getItem(i) != null) {
-                plugin.potatoTroll.add(i);
+                this.potatoTroll.add(i);
             }
         }
 
-        plugin.potatoTroll.stream().mapToInt(Integer::intValue).forEach(slot -> {
+        this.potatoTroll.stream().mapToInt(Integer::intValue).forEach(slot -> {
             ItemStack potato = new ItemStack(Material.BAKED_POTATO);
             ItemMeta potatoMeta = potato.getItemMeta();
 
