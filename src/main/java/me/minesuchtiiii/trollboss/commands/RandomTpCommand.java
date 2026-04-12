@@ -43,7 +43,7 @@ public class RandomTpCommand implements CommandExecutor {
             return true;
         }
 
-        if (!plugin.isInt(args[1])) {
+        if (!Util.isInt(args[1])) {
             player.sendMessage(StringManager.PREFIX + "§cThe count must be a valid number.");
             return true;
         }

@@ -47,7 +47,7 @@ public class SkyCommand implements CommandExecutor {
         String targetName = args[0];
         String timeArg = args[1];
 
-        if (!plugin.isInt(timeArg)) {
+        if (!Util.isInt(timeArg)) {
             player.sendMessage(StringManager.PREFIX + "§cInvalid time provided!");
             return true;
         }

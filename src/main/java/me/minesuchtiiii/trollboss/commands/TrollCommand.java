@@ -79,9 +79,9 @@ public class TrollCommand implements CommandExecutor {
         }
 
         int page = 1;
-        if (args.length == 2 && plugin.isInt(args[1])) {
+        if (args.length == 2 && Util.isInt(args[1])) {
             page = Integer.parseInt(args[1]);
-        } else if (args.length == 2 && !plugin.isInt(args[1])) {
+        } else if (args.length == 2 && !Util.isInt(args[1])) {
             player.sendMessage(StringManager.PREFIX + "§cError! §e" + args[1] + " §cis not a number!");
             return;
         }

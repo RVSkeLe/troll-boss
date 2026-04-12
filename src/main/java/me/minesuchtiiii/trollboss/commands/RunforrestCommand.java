@@ -38,7 +38,7 @@ public class RunforrestCommand implements CommandExecutor {
 
         String timeArg = args[1];
 
-        if (!plugin.isInt(timeArg)) {
+        if (!Util.isInt(timeArg)) {
             player.sendMessage(StringManager.PREFIX + "§cError! §e" + timeArg + " §cis not a number!");
             return true;
         }

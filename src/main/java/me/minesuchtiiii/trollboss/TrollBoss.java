@@ -70,8 +70,6 @@ public class TrollBoss extends JavaPlugin {
     public int spartaTask;
     public int time = 14;
     public int trollBuffer = 0;
-    private String version;
-    private boolean update;
 
     public static TrollBoss getInstance() {
         return INSTANCE;
@@ -80,19 +78,19 @@ public class TrollBoss extends JavaPlugin {
     @Override
     public void onEnable() {
         INSTANCE = this;
-        version = Bukkit.getBukkitVersion();
 
         RegisterEvents.register(this);
         RegisterCommands.register(this);
         saveDefaultConfigFile();
 
-        update = getConfig().getBoolean("Auto-Update");
+        new UpdateChecker(this, 47423).check();
 
-        checkForUpdate();
         this.statsManager = new StatsManager(this);
         this.statsManager.checkFile();
+
         this.garbageManager = new GarbageManager(this);
         this.garbageManager.init();
+
         this.trampleManager = new TrampleManager();
 
         new Metrics(this, METRICS_ID);
@@ -143,21 +141,6 @@ public class TrollBoss extends JavaPlugin {
         Bukkit.getOnlinePlayers().forEach(this::unsetHerobrine);
     }
 
-    private void checkForUpdate() {
-
-        new UpdateChecker(this, 47423).getVersion(version -> {
-            if (getPluginMeta().getVersion().equals(version)) {
-                getLogger().info("You are using the latest version of " + getPluginMeta().getName() + "!");
-            } else {
-                getLogger().info("There is a new update available!");
-                getLogger().info("Your version: v" + getPluginMeta().getVersion());
-                getLogger().info("Latest version: " + version);
-                getLogger().info("Download it at: https://www.spigotmc.org/resources/trollboss.47423/");
-            }
-        });
-
-    }
-
     public StatsManager getStats() {
         return statsManager;
     }
@@ -183,18 +166,6 @@ public class TrollBoss extends JavaPlugin {
         TrollManager.deactivate(p.getUniqueId(), TrollType.HEROBRINE);
 
         Bukkit.getOnlinePlayers().forEach(all -> all.showPlayer(this, p));
-    }
-
-    public boolean isInt(String s) {
-
-        try {
-            Integer.parseInt(s);
-        } catch (NumberFormatException e) {
-            e.printStackTrace();
-
-            return false;
-        }
-        return true;
     }
 
     public void restartMessage(int i) {
@@ -365,15 +336,6 @@ public class TrollBoss extends JavaPlugin {
         creeper.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 2, Integer.MAX_VALUE));
     }
 
-
-    public int getRandom(int lower, int upper) {
-
-        final Random r = new Random();
-
-        return r.nextInt((upper - lower) + 1) + lower;
-
-    }
-
     /**
      * Launches a player upward by modifying their velocity.
      *
@@ -429,7 +391,6 @@ public class TrollBoss extends JavaPlugin {
     }
 
     private int getWarnTime(Player p) {
-
         return this.warnTime.getOrDefault(p.getName(), 0);
     }
 
@@ -589,11 +550,6 @@ public class TrollBoss extends JavaPlugin {
             }, sec * 20L);
 
         }
-    }
-
-    public String getVersion() {
-
-        return this.version;
     }
 
 }

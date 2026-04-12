@@ -53,7 +53,7 @@ public class NomineCommand implements CommandExecutor {
         Player target = Bukkit.getPlayer(args[0]);
         String timeArgument = args[1];
 
-        if (!plugin.isInt(timeArgument)) {
+        if (!Util.isInt(timeArgument)) {
             player.sendMessage(StringManager.PREFIX + NOT_A_NUMBER + timeArgument + " §cis not a number!");
             return true;
         }

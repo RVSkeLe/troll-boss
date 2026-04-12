@@ -70,7 +70,7 @@ public class StarveCommand implements CommandExecutor {
             return false;
         }
 
-        if (!plugin.isInt(countArg)) {
+        if (!Util.isInt(countArg)) {
             player.sendMessage(String.format("%s§cError! §e%s §cis not a number!", StringManager.PREFIX, countArg));
             return false;
         }

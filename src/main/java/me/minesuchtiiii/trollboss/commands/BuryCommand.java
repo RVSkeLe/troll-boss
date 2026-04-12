@@ -44,7 +44,7 @@ public class BuryCommand implements CommandExecutor {
         String timeInput = args[1];
 
         // Validate time input
-        if (!plugin.isInt(timeInput)) {
+        if (!Util.isInt(timeInput)) {
             player.sendMessage(StringManager.PREFIX + "§cInvalid time. Please use a valid number.");
             return true;
         }

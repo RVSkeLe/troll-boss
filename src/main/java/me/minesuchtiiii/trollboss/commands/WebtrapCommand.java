@@ -53,7 +53,7 @@ public class WebtrapCommand implements CommandExecutor {
             return true;
         }
 
-        if (!(plugin.isInt(args[1]))) {
+        if (!(Util.isInt(args[1]))) {
             player.sendMessage(StringManager.PREFIX + "§c" + args[1] + " §4is not a valid input time!");
             return true;
         }

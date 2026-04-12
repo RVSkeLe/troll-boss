@@ -66,7 +66,7 @@ public class SpamCommand implements CommandExecutor {
             return;
         }
 
-        if (!plugin.isInt(amountStr)) {
+        if (!Util.isInt(amountStr)) {
             player.sendMessage(String.format(ERROR_NOT_NUMBER, amountStr));
             return;
         }

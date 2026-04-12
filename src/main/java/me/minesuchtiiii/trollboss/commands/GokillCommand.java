@@ -51,7 +51,7 @@ public class GokillCommand implements CommandExecutor {
             return true;
         }
 
-        if (!plugin.isInt(args[1])) {
+        if (!Util.isInt(args[1])) {
             player.sendMessage(String.format(INVALID_NUMBER, args[1]));
             return true;
         }

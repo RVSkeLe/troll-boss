@@ -54,7 +54,7 @@ public class TrampleCommand implements CommandExecutor {
         String targetName = args[0];
         String amountArg = args[1];
 
-        if (!plugin.isInt(amountArg)) {
+        if (!Util.isInt(amountArg)) {
             player.sendMessage(String.format(NOT_A_NUMBER_ERROR, amountArg));
             return true;
         }

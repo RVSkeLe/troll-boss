@@ -45,7 +45,7 @@ public class DenymoveCommand implements CommandExecutor {
         String targetName = args[0];
         String delayArg = args[1];
 
-        if (!plugin.isInt(delayArg)) {
+        if (!Util.isInt(delayArg)) {
             player.sendMessage(String.format(INVALID_NUMBER_MSG_TEMPLATE, delayArg));
             return true;
         }

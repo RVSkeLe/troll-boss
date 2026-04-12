@@ -62,7 +62,7 @@ public class SquidrainCommand implements CommandExecutor {
         }
 
         // Validate if the input amount is a number
-        if (!plugin.isInt(amountString)) {
+        if (!Util.isInt(amountString)) {
             player.sendMessage(StringManager.PREFIX + "§cError! §e" + amountString + " §cis not a number!");
             return true;
         }

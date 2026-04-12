@@ -8,6 +8,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.SkullMeta;
 
 import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class Util {
     public static List<String> colors = List.of("§a", "§b", "§c", "§d", "§e", "§f", "§1", "§2", "§3", "§4", "§5", "§6", "§7", "§8", "§9", "§o", "§k", "§m", "§n", "§l");
@@ -44,5 +45,21 @@ public class Util {
 
     public static void notOnline(Player p, String name) {
         p.sendMessage(StringManager.PREFIX + "§ePlayer §7" + name + " §eis not online!");
+    }
+
+    public static boolean isInt(String s) {
+        try {
+            Integer.parseInt(s);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
+    }
+
+    public static int getRandom(int lower, int upper) {
+        if (lower > upper) {
+            throw new IllegalArgumentException("lower > upper");
+        }
+        return ThreadLocalRandom.current().nextInt(lower, upper + 1);
     }
 }

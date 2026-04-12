@@ -69,7 +69,7 @@ public class SpartaCommand implements CommandExecutor {
         TrollManager.activate(target.getUniqueId(), TrollType.SPARTA);
         plugin.spartaArrows.put(target.getUniqueId(), 0);
 
-        int arrowAmount = plugin.getRandom(5, 10);
+        int arrowAmount = Util.getRandom(5, 10);
         plugin.spartaTask = Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, () -> handleSpartaArrows(target, arrowAmount), 0L, 20L);
     }
 
@@ -90,9 +90,9 @@ public class SpartaCommand implements CommandExecutor {
     private void spawnArrow(Player target) {
         Location targetLocation = target.getLocation();
         Location spawnLocation = targetLocation.clone().add(
-                plugin.getRandom(-10, 10),
-                plugin.getRandom(5, 10),
-                plugin.getRandom(-10, 10)
+                Util.getRandom(-10, 10),
+                Util.getRandom(5, 10),
+                Util.getRandom(-10, 10)
         );
         Arrow arrow = target.getWorld().spawn(spawnLocation, Arrow.class);
         Vector direction = targetLocation.toVector().subtract(spawnLocation.toVector()).normalize().multiply(2.0D);

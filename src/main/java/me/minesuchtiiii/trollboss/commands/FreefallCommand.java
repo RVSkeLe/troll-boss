@@ -40,7 +40,7 @@ public class FreefallCommand implements CommandExecutor {
             return true;
         }
 
-        if (!this.plugin.isInt(args[1])) {
+        if (!Util.isInt(args[1])) {
             player.sendMessage(StringManager.PREFIX + "§cError! §e" + args[1] + " §cis not a number!");
             return true;
         }

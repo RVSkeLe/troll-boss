@@ -2,6 +2,7 @@ package me.minesuchtiiii.trollboss.commands;
 
 import me.minesuchtiiii.trollboss.TrollBoss;
 import me.minesuchtiiii.trollboss.utils.StringManager;
+import me.minesuchtiiii.trollboss.utils.Util;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -38,7 +39,7 @@ public class FakeRestartCommand implements CommandExecutor {
             return true;
         }
 
-        if (args.length != 1 || !plugin.isInt(args[0])) {
+        if (args.length != 1 || !Util.isInt(args[0])) {
             player.sendMessage(StringManager.PREFIX + "§cError! §e" + args[0] + " §cis not a valid number!");
             return true;
         }

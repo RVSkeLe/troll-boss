@@ -74,7 +74,7 @@ public class HurtCommand implements CommandExecutor {
             return;
         }
 
-        if (!plugin.isInt(args[1])) {
+        if (!Util.isInt(args[1])) {
             player.sendMessage(PREFIX + "§cError! §e" + args[1] + " §cis not a number!");
             return;
         }

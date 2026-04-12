@@ -95,7 +95,7 @@ public class VoidCommand implements CommandExecutor {
     }
 
     private int calculateBlocksToVoid(Location location) {
-        int version = Integer.parseInt(plugin.getVersion().split("\\.")[1]);
+        int version = Integer.parseInt(Bukkit.getVersion().split("\\.")[1]);
         return version >= 18
                 ? (int) location.getY() + 65
                 : (int) location.getY() + 1;

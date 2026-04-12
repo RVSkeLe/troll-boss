@@ -41,7 +41,7 @@ public class TrapCommand implements CommandExecutor {
             return true;
         }
 
-        if (!plugin.isInt(args[1])) {
+        if (!Util.isInt(args[1])) {
             player.sendMessage(StringManager.PREFIX + "§cInvalid time format. Please enter a number.");
             return true;
         }
