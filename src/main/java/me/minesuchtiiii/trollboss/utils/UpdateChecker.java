@@ -62,6 +62,10 @@ public final class UpdateChecker {
     }
 
     private boolean isSameVersion(String a, String b) {
-        return a.equals(b);
+        return normalize(a).equals(normalize(b));
+    }
+
+    private String normalize(String ver) {
+        return ver.replace("v", "");
     }
 }
