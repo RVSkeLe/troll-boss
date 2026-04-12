@@ -68,9 +68,9 @@ public class InvtextCommand implements CommandExecutor {
     private void applyInventoryTextEffect(Player player, Player target) {
         plugin.addTroll();
         plugin.getStats().addStats("Invtext", player);
-        plugin.storeInv(target);
+        plugin.getInventoryManager().storeInv(target);
         addAllInventoryTextItems(target);
-        plugin.restoreInv(target, 20);
+        plugin.getInventoryManager().restoreInv(target, 20);
         player.sendMessage(StringManager.PREFIX + "§eAdded text to §7" + target.getName() + "§e's inventory!");
     }
 

@@ -64,8 +64,8 @@ public class PotatotrollCommand implements CommandExecutor {
     }
 
     private void trollPlayerWithPotatoes(Player player, Player target) {
-        plugin.storeInv(target);
-        plugin.restoreInv(target, 20);
+        plugin.getInventoryManager().storeInv(target);
+        plugin.getInventoryManager().restoreInv(target, 20);
 
         replaceInventoryWithPotatoes(target);
 

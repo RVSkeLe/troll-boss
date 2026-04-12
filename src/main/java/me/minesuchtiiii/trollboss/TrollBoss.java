@@ -4,14 +4,13 @@ import me.minesuchtiiii.trollboss.commands.manager.RegisterCommands;
 import me.minesuchtiiii.trollboss.listeners.RegisterEvents;
 import me.minesuchtiiii.trollboss.manager.StatsManager;
 import me.minesuchtiiii.trollboss.trolls.GarbageManager;
+import me.minesuchtiiii.trollboss.trolls.InventoryManager;
 import me.minesuchtiiii.trollboss.trolls.RunforrestManager;
 import me.minesuchtiiii.trollboss.trolls.TrampleManager;
 import me.minesuchtiiii.trollboss.utils.UpdateChecker;
 import org.bstats.bukkit.Metrics;
 import org.bukkit.*;
 import org.bukkit.entity.*;
-import org.bukkit.event.inventory.InventoryType;
-import org.bukkit.inventory.Inventory;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.*;
@@ -23,11 +22,11 @@ public class TrollBoss extends JavaPlugin {
     private GarbageManager garbageManager;
     private TrampleManager trampleManager;
     private RunforrestManager runforrestManager;
+    private InventoryManager inventoryManager;
     public static final int HELP_PAGES = 6;
     private static final int METRICS_ID = 15941;
     private static TrollBoss INSTANCE;
     public final Map<UUID, List<Location>> ufoBlockLocations = new HashMap<>();
-    private final HashMap<UUID, Inventory> invstores = new HashMap<>();
     public ArrayList<Integer> potatoTroll = new ArrayList<>();
     public HashMap<Integer, Location> altblockloc = new HashMap<>();
     public HashMap<Integer, Location> block = new HashMap<>();
@@ -77,6 +76,7 @@ public class TrollBoss extends JavaPlugin {
 
         this.trampleManager = new TrampleManager();
         this.runforrestManager = new RunforrestManager();
+        this.inventoryManager = new InventoryManager();
 
         new Metrics(this, METRICS_ID);
     }
@@ -137,6 +137,10 @@ public class TrollBoss extends JavaPlugin {
         return runforrestManager;
     }
 
+    public InventoryManager getInventoryManager() {
+        return inventoryManager;
+    }
+
     public boolean canBeTrolled(Player p) {
 
         if (p.isOp()) {
@@ -181,31 +185,6 @@ public class TrollBoss extends JavaPlugin {
 
         }
 
-    }
-
-    public void storeInv(Player p) {
-
-        Inventory clone = Bukkit.createInventory(p, InventoryType.PLAYER);
-        clone.setContents(p.getInventory().getContents());
-        invstores.put(p.getUniqueId(), clone);
-
-    }
-
-    public void restoreInv(Player p, int sec) {
-
-        if (invstores.containsKey(p.getUniqueId())) {
-
-            Bukkit.getScheduler().scheduleSyncDelayedTask(this, () -> {
-
-                p.getInventory().clear();
-                p.getInventory().setContents(invstores.get(p.getUniqueId()).getContents());
-                invstores.remove(p.getUniqueId());
-                p.playSound(p.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1.0F, 1.0F);
-                p.sendMessage("§eJust a prank, here's your old inventory!");
-
-            }, sec * 20L);
-
-        }
     }
 
 }
