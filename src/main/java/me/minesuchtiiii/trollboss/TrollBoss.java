@@ -418,45 +418,6 @@ public class TrollBoss extends JavaPlugin {
 
     }
 
-    public void dropArmor(Player p) {
-
-        final Location loc = p.getLocation().clone();
-
-        for (ItemStack clothes : p.getEquipment().getArmorContents()) {
-            if (clothes != null) {
-
-                loc.getWorld().dropItemNaturally(loc, clothes.clone());
-
-            }
-
-        }
-
-        p.getEquipment().clear();
-        p.updateInventory();
-
-    }
-
-    public void dropItems(Player p) {
-
-        final Location loc = p.getLocation().clone();
-        final Inventory inv = p.getInventory();
-
-        for (ItemStack stuff : inv.getContents()) {
-
-            if (stuff != null) {
-
-                loc.getWorld().dropItemNaturally(loc, stuff.clone());
-
-            }
-
-        }
-
-        p.getInventory().clear();
-        p.updateInventory();
-
-    }
-
-
     /**
      * Launches a player upward by modifying their velocity.
      *

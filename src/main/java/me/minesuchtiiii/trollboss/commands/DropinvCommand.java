@@ -5,10 +5,13 @@ import me.minesuchtiiii.trollboss.manager.TrollManager;
 import me.minesuchtiiii.trollboss.trolls.TrollType;
 import me.minesuchtiiii.trollboss.utils.StringManager;
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
 public class DropinvCommand implements CommandExecutor {
@@ -77,13 +80,46 @@ public class DropinvCommand implements CommandExecutor {
 
         this.plugin.addTroll();
         plugin.getStats().addStats("Dropinv", player);
-        this.plugin.dropItems(target);
-        this.plugin.dropArmor(target);
+        dropItems(target);
+        dropArmor(target);
 
         player.sendMessage(StringManager.PREFIX + "§7" + target.getName() + " §edropped all of his items!");
         TrollManager.activate(target.getUniqueId(), TrollType.DROPINV);
 
         Bukkit.getScheduler().scheduleSyncDelayedTask(this.plugin, () ->
                 TrollManager.deactivate(target.getUniqueId(), TrollType.DROPINV), DELAY);
+    }
+
+    public void dropItems(Player p) {
+
+        final Location loc = p.getLocation().clone();
+        final Inventory inv = p.getInventory();
+
+        for (ItemStack stuff : inv.getContents()) {
+
+            if (stuff != null) {
+
+                loc.getWorld().dropItemNaturally(loc, stuff.clone());
+
+            }
+
+        }
+
+        p.getInventory().clear();
+        p.updateInventory();
+
+    }
+
+    public void dropArmor(Player p) {
+        final Location loc = p.getLocation().clone();
+
+        for (ItemStack clothes : p.getEquipment().getArmorContents()) {
+            if (clothes != null) {
+                loc.getWorld().dropItemNaturally(loc, clothes.clone());
+            }
+        }
+
+        p.getEquipment().clear();
+        p.updateInventory();
     }
 }
