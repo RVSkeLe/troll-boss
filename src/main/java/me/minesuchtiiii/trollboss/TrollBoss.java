@@ -3,10 +3,8 @@ package me.minesuchtiiii.trollboss;
 import me.minesuchtiiii.trollboss.commands.manager.RegisterCommands;
 import me.minesuchtiiii.trollboss.listeners.RegisterEvents;
 import me.minesuchtiiii.trollboss.manager.StatsManager;
-import me.minesuchtiiii.trollboss.manager.TrollManager;
 import me.minesuchtiiii.trollboss.trolls.GarbageManager;
 import me.minesuchtiiii.trollboss.trolls.TrampleManager;
-import me.minesuchtiiii.trollboss.trolls.TrollType;
 import me.minesuchtiiii.trollboss.utils.GuiItem;
 import me.minesuchtiiii.trollboss.utils.StringManager;
 import me.minesuchtiiii.trollboss.utils.UpdateChecker;
@@ -23,7 +21,6 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 // This thing is a god class and needs to be refactored heavily :/
 public class TrollBoss extends JavaPlugin {
@@ -459,19 +456,6 @@ public class TrollBoss extends JavaPlugin {
         }, 1L, 20L);
 
         sixtySecondTimerTask.put(p.getName(), m2);
-
-    }
-
-    public void teleportToBorder(Player p) {
-
-        final Location ploc = p.getLocation();
-
-        final int x = 29999983;
-        final int z = 29999983;
-        final int y = ploc.getWorld().getHighestBlockYAt(x, z);
-
-        final Location bloc = new Location(p.getWorld(), x, y, z, p.getLocation().getPitch(), p.getLocation().getYaw());
-        p.teleport(bloc);
 
     }
 
