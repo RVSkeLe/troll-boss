@@ -4,6 +4,7 @@ import me.minesuchtiiii.trollboss.TrollBoss;
 import me.minesuchtiiii.trollboss.manager.TrollManager;
 import me.minesuchtiiii.trollboss.trolls.TrollType;
 import me.minesuchtiiii.trollboss.utils.StringManager;
+import me.minesuchtiiii.trollboss.utils.Util;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.command.Command;
@@ -40,7 +41,7 @@ public class StarveCommand implements CommandExecutor {
 
         Player targetPlayer = Bukkit.getPlayer(args[0]);
         if (targetPlayer == null) {
-            plugin.notOnline(player, args[0]);
+            Util.notOnline(player, args[0]);
             return true;
         }
 

@@ -4,6 +4,7 @@ import me.minesuchtiiii.trollboss.TrollBoss;
 import me.minesuchtiiii.trollboss.manager.TrollManager;
 import me.minesuchtiiii.trollboss.trolls.TrollType;
 import me.minesuchtiiii.trollboss.utils.StringManager;
+import me.minesuchtiiii.trollboss.utils.Util;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -43,7 +44,7 @@ public class HerobrineCommand implements CommandExecutor {
             if (target != null) {
                 toggleHerobrine(player, target, PREFIX_SET + target.getName() + " §eHerobrine!", PREFIX_UNSET + target.getName() + " §eis no longer Herobrine!");
             } else {
-                plugin.notOnline(player, args[0]);
+                Util.notOnline(player, args[0]);
             }
         } else {
             player.sendMessage(StringManager.MUCHARGS);

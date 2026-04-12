@@ -2,6 +2,7 @@ package me.minesuchtiiii.trollboss.commands;
 
 import me.minesuchtiiii.trollboss.TrollBoss;
 import me.minesuchtiiii.trollboss.utils.StringManager;
+import me.minesuchtiiii.trollboss.utils.Util;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.command.Command;
@@ -42,10 +43,10 @@ public class SwitchCommand implements CommandExecutor {
             player.sendMessage(StringManager.PREFIX + "§eThese players aren't online!");
             return true;
         } else if (playerOne == null) {
-            plugin.notOnline(player, args[0]);
+            Util.notOnline(player, args[0]);
             return true;
         } else if (playerTwo == null) {
-            plugin.notOnline(player, args[1]);
+            Util.notOnline(player, args[1]);
             return true;
         }
 

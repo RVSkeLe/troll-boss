@@ -2,6 +2,7 @@ package me.minesuchtiiii.trollboss.commands;
 
 import me.minesuchtiiii.trollboss.TrollBoss;
 import me.minesuchtiiii.trollboss.utils.StringManager;
+import me.minesuchtiiii.trollboss.utils.Util;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -48,7 +49,7 @@ public class InfectCommand implements CommandExecutor {
         String targetName = args[0];
         Player target = Bukkit.getPlayer(targetName);
         if (target == null) {
-            plugin.notOnline(player, targetName);
+            Util.notOnline(player, targetName);
             return true;
         }
 

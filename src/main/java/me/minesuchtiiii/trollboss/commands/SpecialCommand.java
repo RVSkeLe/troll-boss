@@ -4,6 +4,7 @@ import me.minesuchtiiii.trollboss.TrollBoss;
 import me.minesuchtiiii.trollboss.items.AK47Item;
 import me.minesuchtiiii.trollboss.items.BlockShooterItem;
 import me.minesuchtiiii.trollboss.utils.StringManager;
+import me.minesuchtiiii.trollboss.utils.Util;
 import org.bukkit.Bukkit;
 import org.bukkit.Sound;
 import org.bukkit.command.Command;
@@ -60,7 +61,7 @@ public class SpecialCommand implements CommandExecutor {
     private void handleTargetSpecial(Player player, String specialNumber, String targetName) {
         Player target = Bukkit.getPlayer(targetName);
         if (target == null) {
-            this.plugin.notOnline(player, targetName);
+            Util.notOnline(player, targetName);
             return;
         }
 

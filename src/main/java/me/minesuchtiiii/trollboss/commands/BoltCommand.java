@@ -2,6 +2,7 @@ package me.minesuchtiiii.trollboss.commands;
 
 import me.minesuchtiiii.trollboss.TrollBoss;
 import me.minesuchtiiii.trollboss.utils.StringManager;
+import me.minesuchtiiii.trollboss.utils.Util;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.command.Command;
@@ -66,7 +67,7 @@ public class BoltCommand implements CommandExecutor {
     private void handleTargetedBolt(Player executor, String targetName) {
         Player target = Bukkit.getPlayer(targetName);
         if (target == null) {
-            plugin.notOnline(executor, targetName);
+            Util.notOnline(executor, targetName);
             return;
         }
 

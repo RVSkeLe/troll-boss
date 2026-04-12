@@ -5,6 +5,7 @@ import me.minesuchtiiii.trollboss.manager.TrollManager;
 import me.minesuchtiiii.trollboss.items.keys.AnvilKey;
 import me.minesuchtiiii.trollboss.trolls.TrollType;
 import me.minesuchtiiii.trollboss.utils.StringManager;
+import me.minesuchtiiii.trollboss.utils.Util;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -50,7 +51,7 @@ public class AnvilCommand implements CommandExecutor {
 
         Player target = Bukkit.getPlayer(targetName);
         if (target == null) {
-            plugin.notOnline(player, targetName);
+            Util.notOnline(player, targetName);
             return;
         }
 

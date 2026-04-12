@@ -2,6 +2,7 @@ package me.minesuchtiiii.trollboss.commands;
 
 import me.minesuchtiiii.trollboss.TrollBoss;
 import me.minesuchtiiii.trollboss.utils.StringManager;
+import me.minesuchtiiii.trollboss.utils.Util;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -49,7 +50,7 @@ public class FakeopCommand implements CommandExecutor {
         Player target = Bukkit.getPlayer(targetName);
 
         if (target == null) {
-            plugin.notOnline(sender, targetName);
+            Util.notOnline(sender, targetName);
             return;
         }
 

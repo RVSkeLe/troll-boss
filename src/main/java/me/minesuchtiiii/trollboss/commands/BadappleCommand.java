@@ -2,6 +2,7 @@ package me.minesuchtiiii.trollboss.commands;
 
 import me.minesuchtiiii.trollboss.TrollBoss;
 import me.minesuchtiiii.trollboss.utils.StringManager;
+import me.minesuchtiiii.trollboss.utils.Util;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
@@ -69,7 +70,7 @@ public class BadappleCommand implements CommandExecutor {
     private void handleTargetedApple(Player sender, String targetName) {
         Player target = Bukkit.getPlayer(targetName);
         if (target == null) {
-            this.plugin.notOnline(sender, targetName);
+            Util.notOnline(sender, targetName);
             return;
         }
 

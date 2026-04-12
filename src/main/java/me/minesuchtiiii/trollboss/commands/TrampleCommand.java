@@ -4,12 +4,21 @@ import me.minesuchtiiii.trollboss.TrollBoss;
 import me.minesuchtiiii.trollboss.manager.TrollManager;
 import me.minesuchtiiii.trollboss.trolls.TrollType;
 import me.minesuchtiiii.trollboss.utils.StringManager;
+import me.minesuchtiiii.trollboss.utils.Util;
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
+import org.bukkit.NamespacedKey;
+import org.bukkit.Registry;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
+import org.bukkit.entity.*;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.List;
+import java.util.Objects;
 
 public class TrampleCommand implements CommandExecutor {
 
@@ -58,7 +67,7 @@ public class TrampleCommand implements CommandExecutor {
     private void validateTargetPlayer(Player executor, String targetName, int amount) {
         Player target = Bukkit.getPlayer(targetName);
         if (target == null) {
-            plugin.notOnline(executor, executor.getName());
+            Util.notOnline(executor, executor.getName());
             return;
         }
         if (!plugin.canBeTrolled(target)) {
@@ -89,7 +98,37 @@ public class TrampleCommand implements CommandExecutor {
         TrollManager.activate(target.getUniqueId(), TrollType.TRAMPLE);
         player.sendMessage(StringManager.PREFIX + String.format("§7%d §ecows will trample on §7%s§e!", amount, target.getName()));
         for (int i = 0; i < amount; i++) {
-            plugin.spawnCow(target);
+            spawnCow(target);
         }
+    }
+
+    public void spawnCow(Player p) {
+        final Location ploc = p.getLocation();
+
+        final Silverfish fish = (Silverfish) p.getWorld().spawnEntity(p.getLocation(), EntityType.SILVERFISH);
+        fish.addPotionEffects(List.of(new PotionEffect(PotionEffectType.INVISIBILITY, 10000000, 3),
+                new PotionEffect(PotionEffectType.SPEED, 10000000, 3),
+                new PotionEffect(Objects.requireNonNull(Registry.EFFECT.get(NamespacedKey.minecraft("strength"))), 10000000, 3)));
+        fish.setAggressive(true);
+        fish.setTarget(p);
+
+        final Cow cow = (Cow) p.getWorld().spawnEntity(ploc, EntityType.COW);
+
+        final Silverfish fish2 = (Silverfish) p.getWorld().spawnEntity(p.getLocation(), EntityType.SILVERFISH);
+        fish2.addPotionEffects(List.of(new PotionEffect(PotionEffectType.INVISIBILITY, 10000000, 3),
+                new PotionEffect(PotionEffectType.SPEED, 10000000, 3),
+                new PotionEffect(Objects.requireNonNull(Registry.EFFECT.get(NamespacedKey.minecraft("strength"))), 10000000, 3)));
+        fish2.setAggressive(true);
+        fish2.setTarget(p);
+
+        fish2.setCustomName(Util.getRandomColor() + "Mad Cow");
+        fish2.setCustomNameVisible(false);
+
+        cow.addPassenger(fish2);
+        fish.addPassenger(cow);
+
+        plugin.getTrampleManager().addCow(cow);
+        plugin.getTrampleManager().addCow(fish);
+        plugin.getTrampleManager().addCow(fish2);
     }
 }

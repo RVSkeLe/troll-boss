@@ -3,6 +3,7 @@ package me.minesuchtiiii.trollboss.commands;
 import me.minesuchtiiii.trollboss.TrollBoss;
 import me.minesuchtiiii.trollboss.trolls.TrollType;
 import me.minesuchtiiii.trollboss.utils.StringManager;
+import me.minesuchtiiii.trollboss.utils.Util;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -43,7 +44,7 @@ public class RandomtrollCommand implements CommandExecutor {
 
         Player target = Bukkit.getPlayer(args[0]);
         if (target == null) {
-            plugin.notOnline(player, args[0]);
+            Util.notOnline(player, args[0]);
             return true;
         }
 

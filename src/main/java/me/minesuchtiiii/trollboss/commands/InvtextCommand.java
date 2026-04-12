@@ -47,7 +47,7 @@ public class InvtextCommand implements CommandExecutor {
         final Player target = Bukkit.getPlayer(commandArgs[0]);
 
         if (target == null) {
-            plugin.notOnline(player, commandArgs[0]);
+            Util.notOnline(player, commandArgs[0]);
             return true;
         }
 

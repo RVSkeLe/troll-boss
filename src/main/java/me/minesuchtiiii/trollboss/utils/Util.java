@@ -42,4 +42,7 @@ public class Util {
         p.teleport(loc);
     }
 
+    public static void notOnline(Player p, String name) {
+        p.sendMessage(StringManager.PREFIX + "§ePlayer §7" + name + " §eis not online!");
+    }
 }

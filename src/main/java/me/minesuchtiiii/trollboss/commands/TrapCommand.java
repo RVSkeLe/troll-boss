@@ -55,7 +55,7 @@ public class TrapCommand implements CommandExecutor {
         }
 
         if (target == null) {
-            plugin.notOnline(player, args[0]);
+            Util.notOnline(player, args[0]);
             return true;
         }
 

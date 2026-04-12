@@ -6,6 +6,7 @@ import me.minesuchtiiii.trollboss.trolls.TrollFlag;
 import me.minesuchtiiii.trollboss.trolls.TrollType;
 import me.minesuchtiiii.trollboss.utils.StringManager;
 import me.minesuchtiiii.trollboss.utils.Ufo;
+import me.minesuchtiiii.trollboss.utils.Util;
 import org.bukkit.*;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -16,7 +17,6 @@ import org.bukkit.potion.PotionEffectType;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;
-import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class AbductCommand implements CommandExecutor {
@@ -53,7 +53,7 @@ public class AbductCommand implements CommandExecutor {
 
         Player target = Bukkit.getPlayer(args[0]);
         if (target == null) {
-            plugin.notOnline(player, args[0]);
+            Util.notOnline(player, args[0]);
             return true;
         }
 

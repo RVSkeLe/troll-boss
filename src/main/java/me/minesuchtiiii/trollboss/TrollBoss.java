@@ -5,6 +5,7 @@ import me.minesuchtiiii.trollboss.listeners.RegisterEvents;
 import me.minesuchtiiii.trollboss.manager.StatsManager;
 import me.minesuchtiiii.trollboss.manager.TrollManager;
 import me.minesuchtiiii.trollboss.trolls.GarbageManager;
+import me.minesuchtiiii.trollboss.trolls.TrampleManager;
 import me.minesuchtiiii.trollboss.trolls.TrollType;
 import me.minesuchtiiii.trollboss.utils.GuiItem;
 import me.minesuchtiiii.trollboss.utils.StringManager;
@@ -12,21 +13,15 @@ import me.minesuchtiiii.trollboss.utils.UpdateChecker;
 import me.minesuchtiiii.trollboss.utils.Util;
 import org.bstats.bukkit.Metrics;
 import org.bukkit.*;
-import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.configuration.file.YamlConfiguration;
-import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.*;
 import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.Inventory;
-import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -35,11 +30,11 @@ public class TrollBoss extends JavaPlugin {
 
     private StatsManager statsManager;
     private GarbageManager garbageManager;
+    private TrampleManager trampleManager;
     public static final int HELP_PAGES = 6;
     private static final int METRICS_ID = 15941;
     private static TrollBoss INSTANCE;
     public final Map<UUID, List<Location>> ufoBlockLocations = new HashMap<>();
-    private final ArrayList<Entity> cows = new ArrayList<>();
     private final HashMap<String, Integer> fiveSecondTimerTask = new HashMap<>();
     private final HashMap<String, Integer> sixtySecondTimerTask = new HashMap<>();
     private final HashMap<String, Integer> tasks2 = new HashMap<>();
@@ -98,6 +93,7 @@ public class TrollBoss extends JavaPlugin {
         this.statsManager.checkFile();
         this.garbageManager = new GarbageManager(this);
         this.garbageManager.init();
+        this.trampleManager = new TrampleManager();
 
         new Metrics(this, METRICS_ID);
     }
@@ -170,8 +166,8 @@ public class TrollBoss extends JavaPlugin {
         return garbageManager;
     }
 
-    public void notOnline(Player p, String name) {
-        p.sendMessage(StringManager.PREFIX + "§ePlayer §7" + name + " §eis not online!");
+    public TrampleManager getTrampleManager() {
+        return trampleManager;
     }
 
     public void setHerobrine(Player p) {
@@ -293,44 +289,6 @@ public class TrollBoss extends JavaPlugin {
 
     }
 
-    public void spawnCow(Player p) {
-        final Location ploc = p.getLocation();
-
-        final Silverfish fish = (Silverfish) p.getWorld().spawnEntity(p.getLocation(), EntityType.SILVERFISH);
-        fish.addPotionEffects(List.of(new PotionEffect(PotionEffectType.INVISIBILITY, 10000000, 3),
-                new PotionEffect(PotionEffectType.SPEED, 10000000, 3),
-                new PotionEffect(Objects.requireNonNull(Registry.EFFECT.get(NamespacedKey.minecraft("strength"))), 10000000, 3)));
-        fish.setAggressive(true);
-        fish.setTarget(p);
-
-        final Cow cow = (Cow) p.getWorld().spawnEntity(ploc, EntityType.COW);
-
-        final Silverfish fish2 = (Silverfish) p.getWorld().spawnEntity(p.getLocation(), EntityType.SILVERFISH);
-        fish2.addPotionEffects(List.of(new PotionEffect(PotionEffectType.INVISIBILITY, 10000000, 3),
-                new PotionEffect(PotionEffectType.SPEED, 10000000, 3),
-                new PotionEffect(Objects.requireNonNull(Registry.EFFECT.get(NamespacedKey.minecraft("strength"))), 10000000, 3)));
-        fish2.setAggressive(true);
-        fish2.setTarget(p);
-
-        fish2.setCustomName(Util.getRandomColor() + "Mad Cow");
-        fish2.setCustomNameVisible(false);
-
-        cow.addPassenger(fish2);
-        fish.addPassenger(cow);
-
-        cows.add(cow);
-        cows.add(fish);
-        cows.add(fish2);
-
-    }
-
-    public void removeCows() {
-
-        cows.forEach(Entity::remove);
-        cows.clear();
-
-    }
-
     public int getTrolls() {
 
         if (getConfig().getString("Trolls") != null) {
@@ -347,9 +305,7 @@ public class TrollBoss extends JavaPlugin {
     }
 
     private int total() {
-
         return trollBuffer + getTrolls();
-
     }
 
     private void saveTrolls() {

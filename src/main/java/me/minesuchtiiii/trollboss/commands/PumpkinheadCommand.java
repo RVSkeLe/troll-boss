@@ -2,6 +2,7 @@ package me.minesuchtiiii.trollboss.commands;
 
 import me.minesuchtiiii.trollboss.TrollBoss;
 import me.minesuchtiiii.trollboss.utils.StringManager;
+import me.minesuchtiiii.trollboss.utils.Util;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
@@ -39,7 +40,7 @@ public class PumpkinheadCommand implements CommandExecutor {
             Player targetPlayer = Bukkit.getPlayer(args[0]);
 
             if (targetPlayer == null) {
-                plugin.notOnline(player, args[0]);
+                Util.notOnline(player, args[0]);
                 return true;
             }
 

@@ -13,8 +13,6 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.Random;
-
 public class PotatotrollCommand implements CommandExecutor {
     private final TrollBoss plugin;
     boolean emp;
@@ -47,7 +45,7 @@ public class PotatotrollCommand implements CommandExecutor {
 
         Player target = Bukkit.getPlayer(args[0]);
         if (target == null) {
-            plugin.notOnline(player, args[0]);
+            Util.notOnline(player, args[0]);
             return true;
         }
 

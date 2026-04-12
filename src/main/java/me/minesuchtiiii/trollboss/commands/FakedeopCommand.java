@@ -2,6 +2,7 @@ package me.minesuchtiiii.trollboss.commands;
 
 import me.minesuchtiiii.trollboss.TrollBoss;
 import me.minesuchtiiii.trollboss.utils.StringManager;
+import me.minesuchtiiii.trollboss.utils.Util;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -54,7 +55,7 @@ public class FakedeopCommand implements CommandExecutor {
     private void fakeDeopSinglePlayer(Player player, String targetName) {
         Player target = Bukkit.getPlayer(targetName);
         if (target == null) {
-            plugin.notOnline(player, targetName);
+            Util.notOnline(player, targetName);
             return;
         }
 

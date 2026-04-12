@@ -3,18 +3,14 @@ package me.minesuchtiiii.trollboss.commands;
 import me.minesuchtiiii.trollboss.TrollBoss;
 import me.minesuchtiiii.trollboss.items.TeleportTrollItem;
 import me.minesuchtiiii.trollboss.utils.StringManager;
+import me.minesuchtiiii.trollboss.utils.Util;
 import org.bukkit.Bukkit;
-import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
 import org.jetbrains.annotations.NotNull;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class TptrollCommand implements CommandExecutor {
 
@@ -47,7 +43,7 @@ public class TptrollCommand implements CommandExecutor {
                 player.sendMessage(StringManager.PREFIX + "§eYou gave the teleport troll item to §7" + target.getName() + "§e!");
                 target.sendMessage(StringManager.PREFIX + "§7You're getting something special!");
             } else {
-                plugin.notOnline(player, args[0]);
+                Util.notOnline(player, args[0]);
             }
         } else {
             player.sendMessage(StringManager.MUCHARGS);

@@ -2,6 +2,7 @@ package me.minesuchtiiii.trollboss.commands;
 
 import me.minesuchtiiii.trollboss.TrollBoss;
 import me.minesuchtiiii.trollboss.utils.StringManager;
+import me.minesuchtiiii.trollboss.utils.Util;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -39,7 +40,7 @@ public class LaunchCommand implements CommandExecutor {
                     if (targetPlayer != null) {
                         handleTargetLaunch(player, targetPlayer);
                     } else {
-                        plugin.notOnline(player, args[0]);
+                        Util.notOnline(player, args[0]);
                     }
                 }
             }

@@ -3,6 +3,7 @@ package me.minesuchtiiii.trollboss.listeners.gui;
 import me.minesuchtiiii.trollboss.TrollBoss;
 import me.minesuchtiiii.trollboss.manager.trolltutorial.TutorialManager;
 import me.minesuchtiiii.trollboss.utils.StringManager;
+import me.minesuchtiiii.trollboss.utils.Util;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -50,7 +51,7 @@ public class TrollInvListener implements Listener {
                             }
                         } else {
 
-                            this.plugin.notOnline(p, name);
+                            Util.notOnline(p, name);
 
                         }
                     }

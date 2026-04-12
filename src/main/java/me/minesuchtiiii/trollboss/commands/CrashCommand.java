@@ -4,6 +4,7 @@ import me.minesuchtiiii.trollboss.TrollBoss;
 import me.minesuchtiiii.trollboss.manager.TrollManager;
 import me.minesuchtiiii.trollboss.trolls.TrollType;
 import me.minesuchtiiii.trollboss.utils.StringManager;
+import me.minesuchtiiii.trollboss.utils.Util;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.Bukkit;
@@ -68,7 +69,7 @@ public class CrashCommand implements CommandExecutor {
     private void crashSinglePlayer(Player executor, String targetName) {
         Player target = Bukkit.getPlayer(targetName);
         if (target == null) {
-            plugin.notOnline(executor, targetName);
+            Util.notOnline(executor, targetName);
             return;
         }
 

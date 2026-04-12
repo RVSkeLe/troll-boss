@@ -20,7 +20,7 @@ public class DeathListenerTrample implements Listener {
         if (!(TrollManager.deactivate(e.getPlayer().getUniqueId(), TrollType.TRAMPLE))) return;
 
         e.deathMessage(null);
-        this.plugin.removeCows();
+        plugin.getTrampleManager().removeAllCows();
     }
 
 }

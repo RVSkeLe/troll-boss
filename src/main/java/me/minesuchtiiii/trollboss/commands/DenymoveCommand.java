@@ -4,6 +4,7 @@ import me.minesuchtiiii.trollboss.TrollBoss;
 import me.minesuchtiiii.trollboss.manager.TrollManager;
 import me.minesuchtiiii.trollboss.trolls.TrollType;
 import me.minesuchtiiii.trollboss.utils.StringManager;
+import me.minesuchtiiii.trollboss.utils.Util;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -67,7 +68,7 @@ public class DenymoveCommand implements CommandExecutor {
     private void handleSinglePlayer(Player sender, String targetName, int delayInSeconds) {
         Player target = Bukkit.getPlayer(targetName);
         if (target == null) {
-            plugin.notOnline(sender, targetName);
+            Util.notOnline(sender, targetName);
             return;
         }
 
