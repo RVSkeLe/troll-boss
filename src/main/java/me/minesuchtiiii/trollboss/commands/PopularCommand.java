@@ -4,6 +4,7 @@ import me.minesuchtiiii.trollboss.TrollBoss;
 import me.minesuchtiiii.trollboss.utils.StringManager;
 import me.minesuchtiiii.trollboss.utils.Util;
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -79,10 +80,17 @@ public class PopularCommand implements CommandExecutor {
     }
 
     private void performTrollAction(Player player, Player target) {
-        plugin.getAllTo(target, player);
+        getAllTo(target, player);
         plugin.addTroll();
         plugin.getStats().addStats(TROLL_ACTION, player);
 
         player.sendMessage(String.format("%s§7%s §eis popular now!", StringManager.PREFIX, target.getName()));
+    }
+
+    public void getAllTo(Player trgt, Player ignore) {
+        final Location loc = trgt.getLocation();
+
+        Bukkit.getServer().getOnlinePlayers().stream().filter(all -> !all.getName().equals(ignore.getName()))
+                .forEach(all -> all.teleport(loc));
     }
 }

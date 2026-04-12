@@ -63,7 +63,7 @@ public class DropinvCommand implements CommandExecutor {
             return;
         }
 
-        if (this.plugin.isInventoryEmpty(target)) {
+        if (Util.isInventoryEmpty(target)) {
             player.sendMessage(StringManager.PREFIX + "§cCan't use that command on that player, his inventory is empty!");
             return;
         }

@@ -5,6 +5,7 @@ import me.minesuchtiiii.trollboss.manager.GuiManager;
 import me.minesuchtiiii.trollboss.manager.TrollManager;
 import me.minesuchtiiii.trollboss.manager.trolltutorial.TutorialManager;
 import me.minesuchtiiii.trollboss.trolls.TrollType;
+import me.minesuchtiiii.trollboss.utils.GuiItem;
 import me.minesuchtiiii.trollboss.utils.StringManager;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -12,7 +13,9 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.UUID;
 
@@ -66,7 +69,7 @@ public class GuiListener implements Listener {
                 }
                 case CHEST -> {
                     if (!checkTutorial(p)) {
-                        this.plugin.openChoseWindow(p);
+                        openChoseWindow(p);
                     }
                     return;
                 }
@@ -185,4 +188,31 @@ public class GuiListener implements Listener {
                 && item.getItemMeta().hasDisplayName()
                 && name.equals(item.getItemMeta().getDisplayName());
     }
+
+    public void openChoseWindow(Player p) {
+        final Inventory inv = Bukkit.createInventory(null, 9, "§cChoose the special");
+
+        final ItemStack one = GuiItem.createGuiItem(1, Material.EMERALD, "§7#1 §eAk-47", "§7To get the AK-47.");
+        final ItemStack two = GuiItem.createGuiItem(2, Material.EMERALD, "§7#2 §eBlock Shooter", "§7To get the Block Shooter.");
+        final ItemStack back = GuiItem.createGuiItem(1, Material.IRON_DOOR, "§bReturn to the Troll-Gui", "§7To return to the Troll-Gui.");
+
+        final ItemStack none = new ItemStack(Material.GLASS_PANE, 1);
+        final ItemMeta nonemeta = none.getItemMeta();
+        nonemeta.setDisplayName("§5");
+        none.setItemMeta(nonemeta);
+
+        inv.setItem(0, one);
+        inv.setItem(1, two);
+        inv.setItem(8, back);
+
+        inv.setItem(2, none);
+        inv.setItem(3, none);
+        inv.setItem(4, none);
+        inv.setItem(5, none);
+        inv.setItem(6, none);
+        inv.setItem(7, none);
+
+        p.openInventory(inv);
+    }
+
 }

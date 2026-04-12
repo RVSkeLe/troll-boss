@@ -6,15 +6,12 @@ import me.minesuchtiiii.trollboss.manager.StatsManager;
 import me.minesuchtiiii.trollboss.trolls.GarbageManager;
 import me.minesuchtiiii.trollboss.trolls.RunforrestManager;
 import me.minesuchtiiii.trollboss.trolls.TrampleManager;
-import me.minesuchtiiii.trollboss.utils.GuiItem;
 import me.minesuchtiiii.trollboss.utils.UpdateChecker;
 import org.bstats.bukkit.Metrics;
 import org.bukkit.*;
 import org.bukkit.entity.*;
 import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.Inventory;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.*;
@@ -150,54 +147,8 @@ public class TrollBoss extends JavaPlugin {
     }
 
     public void closeGui(Player p) {
-
         p.getOpenInventory().close();
         p.playSound(p.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1.0F, 1.0F);
-
-    }
-
-    public void openChoseWindow(Player p) {
-
-        final Inventory inv = Bukkit.createInventory(null, 9, "§cChoose the special");
-
-        final ItemStack one = GuiItem.createGuiItem(1, Material.EMERALD, "§7#1 §eAk-47", "§7To get the AK-47.");
-        final ItemStack two = GuiItem.createGuiItem(2, Material.EMERALD, "§7#2 §eBlock Shooter", "§7To get the Block Shooter.");
-        final ItemStack back = GuiItem.createGuiItem(1, Material.IRON_DOOR, "§bReturn to the Troll-Gui", "§7To return to the Troll-Gui.");
-
-        final ItemStack none = new ItemStack(Material.GLASS_PANE, 1);
-        final ItemMeta nonemeta = none.getItemMeta();
-        nonemeta.setDisplayName("§5");
-        none.setItemMeta(nonemeta);
-
-        inv.setItem(0, one);
-        inv.setItem(1, two);
-        inv.setItem(8, back);
-
-        inv.setItem(2, none);
-        inv.setItem(3, none);
-        inv.setItem(4, none);
-        inv.setItem(5, none);
-        inv.setItem(6, none);
-        inv.setItem(7, none);
-
-        p.openInventory(inv);
-
-    }
-
-    public boolean isInventoryEmpty(Player p) {
-
-        for (ItemStack item : p.getInventory().getContents()) {
-
-            if (item != null) {
-
-                return false;
-
-            }
-
-        }
-
-        return true;
-
     }
 
     public int getTrolls() {
@@ -229,15 +180,6 @@ public class TrollBoss extends JavaPlugin {
             trollBuffer = 0;
 
         }
-
-    }
-
-    public void getAllTo(Player trgt, Player ignore) {
-
-        final Location loc = trgt.getLocation();
-
-        Bukkit.getServer().getOnlinePlayers().stream().filter(all -> !all.getName().equals(ignore.getName()))
-                .forEach(all -> all.teleport(loc));
 
     }
 

@@ -54,7 +54,7 @@ public class PotatotrollCommand implements CommandExecutor {
             return true;
         }
 
-        if (plugin.isInventoryEmpty(target)) {
+        if (Util.isInventoryEmpty(target)) {
             player.sendMessage(StringManager.PREFIX + "§cCan't troll player §4" + target.getName() + " §cbecause their inventory is empty!");
             return true;
         }

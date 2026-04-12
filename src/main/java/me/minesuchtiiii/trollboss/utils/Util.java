@@ -62,4 +62,8 @@ public class Util {
         }
         return ThreadLocalRandom.current().nextInt(lower, upper + 1);
     }
+
+    public static boolean isInventoryEmpty(Player p) {
+        return p.getInventory().isEmpty();
+    }
 }
