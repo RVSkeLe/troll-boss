@@ -8,12 +8,11 @@ import org.bukkit.block.Block;
 import org.bukkit.block.Sign;
 import org.bukkit.entity.Player;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 // Should probably be replaced by using a schematic and FAWE
 public class Ufo {
+    public final Map<UUID, List<Location>> ufoBlockLocations = new HashMap<>();
 
     private final TrollBoss plugin;
 
@@ -22,7 +21,7 @@ public class Ufo {
         this.plugin = plugin;
         UUID playerUUID = player.getUniqueId();
         Location loc = player.getLocation();
-        plugin.ufoBlockLocations.put(playerUUID, new ArrayList<>());
+        ufoBlockLocations.put(playerUUID, new ArrayList<>());
 
         int baseY = (int) (loc.getY() + 75);
         int floor = baseY - 1;
@@ -327,7 +326,7 @@ public class Ufo {
      */
     private void setBlock(UUID playerUUID, World world, int x, int y, int z, Material material) {
         world.getBlockAt(x, y, z).setType(material);
-        plugin.ufoBlockLocations.get(playerUUID).add(new Location(world, x, y, z));
+        ufoBlockLocations.get(playerUUID).add(new Location(world, x, y, z));
     }
 
     /**
@@ -338,12 +337,12 @@ public class Ufo {
      * @param playerUUID The unique identifier of the player whose UFO is to be removed.
      */
     public void removeUfo(UUID playerUUID) {
-        List<Location> blocks = plugin.ufoBlockLocations.get(playerUUID);
+        List<Location> blocks = ufoBlockLocations.get(playerUUID);
         if (blocks != null) {
             for (Location loc : blocks) {
                 loc.getBlock().setType(Material.AIR);
             }
-            plugin.ufoBlockLocations.remove(playerUUID);
+            ufoBlockLocations.remove(playerUUID);
         }
     }
 

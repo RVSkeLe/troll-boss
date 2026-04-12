@@ -25,18 +25,13 @@ public class TrollBoss extends JavaPlugin {
     public static final int HELP_PAGES = 6;
     private static final int METRICS_ID = 15941;
     private static TrollBoss INSTANCE;
-    public final Map<UUID, List<Location>> ufoBlockLocations = new HashMap<>();
 
     public HashMap<String, Location> skymap = new HashMap<>();
-    public HashMap<UUID, Integer> spartaArrows = new HashMap<>();
     public HashMap<UUID, Location> abductedCachedLocations = new HashMap<>();
     public HashMap<UUID, UUID> trolling = new HashMap<>();
-    public boolean c;
     public boolean creep;
     public int bowCreepers = 0;
     public int creepers = 0;
-    public int spartaTask;
-    public int time = 14;
     public int trollBuffer = 0;
 
     public static TrollBoss getInstance() {

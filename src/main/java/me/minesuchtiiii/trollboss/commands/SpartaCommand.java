@@ -16,10 +16,13 @@ import org.bukkit.entity.Player;
 import org.bukkit.util.Vector;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.HashMap;
 import java.util.UUID;
 
 public class SpartaCommand implements CommandExecutor {
     private final TrollBoss plugin;
+    public HashMap<UUID, Integer> spartaArrows = new HashMap<>();
+    public int spartaTask;
 
     public SpartaCommand(TrollBoss plugin) {
         this.plugin = plugin;
@@ -67,10 +70,10 @@ public class SpartaCommand implements CommandExecutor {
         plugin.getStats().addStats("Sparta", player);
         player.sendMessage(StringManager.PREFIX + "§7" + target.getName() + " §ewill enjoy SPARTA!");
         TrollManager.activate(target.getUniqueId(), TrollType.SPARTA);
-        plugin.spartaArrows.put(target.getUniqueId(), 0);
+        spartaArrows.put(target.getUniqueId(), 0);
 
         int arrowAmount = Util.getRandom(5, 10);
-        plugin.spartaTask = Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, () -> handleSpartaArrows(target, arrowAmount), 0L, 20L);
+        this.spartaTask = Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, () -> handleSpartaArrows(target, arrowAmount), 0L, 20L);
     }
 
     private void handleSpartaArrows(Player target, int arrowAmount) {
@@ -79,9 +82,9 @@ public class SpartaCommand implements CommandExecutor {
             return;
         }
 
-        if (plugin.spartaArrows.get(target.getUniqueId()) < arrowAmount) {
+        if (spartaArrows.get(target.getUniqueId()) < arrowAmount) {
             spawnArrow(target);
-            plugin.spartaArrows.put(target.getUniqueId(), plugin.spartaArrows.get(target.getUniqueId()) + 1);
+            spartaArrows.put(target.getUniqueId(), spartaArrows.get(target.getUniqueId()) + 1);
         } else {
             resetSparta(target);
         }
@@ -100,11 +103,11 @@ public class SpartaCommand implements CommandExecutor {
     }
 
     private void resetSparta(Player player) {
-        Bukkit.getScheduler().cancelTask(plugin.spartaTask);
+        Bukkit.getScheduler().cancelTask(this.spartaTask);
         UUID playerUuid = player.getUniqueId();
 
         TrollManager.deactivate(playerUuid, TrollType.SPARTA);
-        plugin.spartaArrows.remove(playerUuid);
+        spartaArrows.remove(playerUuid);
         DeathManager.setDead(playerUuid, TrollType.SPARTA);
     }
 }
